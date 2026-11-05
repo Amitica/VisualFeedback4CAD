@@ -1,0 +1,1919 @@
+{
+  "schema_version": 1,
+  "package_name": "visualfeedback4cad-baselines-20261105-v1",
+  "created_at": "2026-11-05T10:14:26.724Z",
+  "source_git_head": "8ae143221935ecece1d3d4b5141f3afa4e915988",
+  "source_git_dirty": true,
+  "snapshot_policy": "Current allowlisted working-tree files, including untracked changes; not a Git HEAD-only export.",
+  "model": {
+    "provider": "ucloud",
+    "id": "gpt-5.6-sol",
+    "thinking_level": "low"
+  },
+  "default_experiment_cases": [
+    "102",
+    "103",
+    "145",
+    "146"
+  ],
+  "scope": "all_supported_generation_inputs",
+  "fixture_ids": [
+    "101",
+    "102",
+    "103",
+    "104",
+    "105",
+    "106",
+    "107",
+    "108",
+    "109",
+    "110",
+    "111",
+    "112",
+    "113",
+    "114",
+    "115",
+    "116",
+    "117",
+    "118",
+    "119",
+    "120",
+    "121",
+    "122",
+    "123",
+    "124",
+    "125",
+    "126",
+    "127",
+    "128",
+    "129",
+    "130",
+    "131",
+    "132",
+    "133",
+    "134",
+    "135",
+    "136",
+    "137",
+    "138",
+    "139",
+    "140",
+    "141",
+    "142",
+    "143",
+    "145",
+    "146",
+    "147",
+    "148",
+    "149",
+    "150"
+  ],
+  "fixture_count": 49,
+  "excluded_generation_fixtures": [],
+  "incompatible_fixture_ids": [],
+  "fixtures": [
+    {
+      "id": "101",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "102",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "103",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "104",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "105",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "106",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "107",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "108",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "109",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "110",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "111",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "112",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "113",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "114",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "115",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "116",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "117",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "118",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "119",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "120",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "121",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "122",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "123",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "124",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "125",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "126",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "127",
+      "files": [
+        "description.yaml",
+        "input.png",
+        "input2.png"
+      ]
+    },
+    {
+      "id": "128",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "129",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "130",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "131",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "132",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "133",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "134",
+      "files": [
+        "description.yaml",
+        "input.png",
+        "input2.png"
+      ]
+    },
+    {
+      "id": "135",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "136",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "137",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "138",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "139",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "140",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "141",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "142",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "143",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "145",
+      "files": [
+        "description.yaml",
+        "input.png",
+        "input2.png"
+      ]
+    },
+    {
+      "id": "146",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "147",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "148",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "149",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    },
+    {
+      "id": "150",
+      "files": [
+        "description.yaml",
+        "input.png"
+      ]
+    }
+  ],
+  "payload_files": [
+    {
+      "path": "data/inputs/101/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/101/input.png",
+      "bytes": 824822,
+      "sha256": "0398eccdc09f641bb45c8ccd33956b2acc05685513be05732fcb9faf21f66166"
+    },
+    {
+      "path": "data/inputs/102/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/102/input.png",
+      "bytes": 902718,
+      "sha256": "f43c3893b09232ebfde8b21063f1cc17c0a3fe5d2f4a12cc3c1d425dadc50935"
+    },
+    {
+      "path": "data/inputs/103/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/103/input.png",
+      "bytes": 769195,
+      "sha256": "1e1742b985786e529b81576ed26763400215543d214e0a511762cf6af1bed8c5"
+    },
+    {
+      "path": "data/inputs/104/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/104/input.png",
+      "bytes": 792290,
+      "sha256": "56fffd7b9884ffb52c8d06f5b46d1238cf81d1649bbdd257004c61f19a47aea3"
+    },
+    {
+      "path": "data/inputs/105/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/105/input.png",
+      "bytes": 904053,
+      "sha256": "c0bb013249f0116a6cd04c0dc724b1474acd1a65dcf38fc13ecd3ef212b25242"
+    },
+    {
+      "path": "data/inputs/106/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/106/input.png",
+      "bytes": 613771,
+      "sha256": "3b96204333a6b17c210b12a2737e385f52e13b6ee3f1e978c0816939077712db"
+    },
+    {
+      "path": "data/inputs/107/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/107/input.png",
+      "bytes": 690766,
+      "sha256": "8f8bb2221c13c928c041a95ad50a9766a3e8b43df9f0a521af2314a40807d78c"
+    },
+    {
+      "path": "data/inputs/108/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/108/input.png",
+      "bytes": 718317,
+      "sha256": "b1c8747704bc95e8dc564690b4505bb044c784106e7be9bd1ad3928f05470ef1"
+    },
+    {
+      "path": "data/inputs/109/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/109/input.png",
+      "bytes": 825745,
+      "sha256": "29a9c3f648985e91a1b65ad59fad2f32480251e794acb0ab240c148f3ae61140"
+    },
+    {
+      "path": "data/inputs/110/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/110/input.png",
+      "bytes": 732019,
+      "sha256": "da65a8ea514e89091b5e9c7ee398ffc13299c2c994fd7f56fa891b2975d4bd7a"
+    },
+    {
+      "path": "data/inputs/111/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/111/input.png",
+      "bytes": 1035532,
+      "sha256": "51268794bc3e92bfaa6f822d34105ffa21bf2b691f1fa1b837f8c9f1a88c84e3"
+    },
+    {
+      "path": "data/inputs/112/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/112/input.png",
+      "bytes": 712023,
+      "sha256": "7cf97f4238fac3eee957a6462a1657b6e56a34563fefad07041562a656f3ecf8"
+    },
+    {
+      "path": "data/inputs/113/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/113/input.png",
+      "bytes": 531889,
+      "sha256": "adf523f667b300a2519f657d2cc641486df5067c18a9e75edbdace0a4c3b197e"
+    },
+    {
+      "path": "data/inputs/114/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/114/input.png",
+      "bytes": 567888,
+      "sha256": "dae99d4a4d9fbac9367253a14d0daac2bc0d7820f772961116f823ab759354a3"
+    },
+    {
+      "path": "data/inputs/115/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/115/input.png",
+      "bytes": 887314,
+      "sha256": "3c13970e2ecc3497ce68d69d1f50107c615bef97ce561e0b87e0ea7d4f6865b0"
+    },
+    {
+      "path": "data/inputs/116/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/116/input.png",
+      "bytes": 862936,
+      "sha256": "4901b6270a4eb51c31b25e8b85080082433d5cffc0224acd7df67f89ce29971d"
+    },
+    {
+      "path": "data/inputs/117/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/117/input.png",
+      "bytes": 876612,
+      "sha256": "b08a509e6f28067131e749ed3125cd1bae1955c3cd5d5db4155634a80527a531"
+    },
+    {
+      "path": "data/inputs/118/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/118/input.png",
+      "bytes": 824059,
+      "sha256": "d457f352eaa6b3e0ebcb958a119dd3df13f5dc2263592ff1b653f5b99f362ba7"
+    },
+    {
+      "path": "data/inputs/119/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/119/input.png",
+      "bytes": 632795,
+      "sha256": "9e4ef4e5b14303c0e0dcf090c01b6801601093f49e6180452158a4a0d1ec0c47"
+    },
+    {
+      "path": "data/inputs/120/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/120/input.png",
+      "bytes": 822241,
+      "sha256": "d67ccf181a9e9ebae248bbcc7cbb2b48eadcafa9ea04a5f63797581e6f718986"
+    },
+    {
+      "path": "data/inputs/121/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/121/input.png",
+      "bytes": 865882,
+      "sha256": "a7336863a5dabd821bed17fd981b8fd0fd9f333747b981a5a89916731f115ed6"
+    },
+    {
+      "path": "data/inputs/122/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/122/input.png",
+      "bytes": 671274,
+      "sha256": "d03a2b0654aa81fcc4e176c33923f17d5c3ee9e42f8a041429bbb23452e51dbb"
+    },
+    {
+      "path": "data/inputs/123/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/123/input.png",
+      "bytes": 702808,
+      "sha256": "2b3f9f63a4c474b43ddaf1a3c036cad66c212a26ed73d920fac737efc39becfb"
+    },
+    {
+      "path": "data/inputs/124/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/124/input.png",
+      "bytes": 866508,
+      "sha256": "28c93faf5d72407b9b5f7e00eed7e9420e934e43b65f449a96bae00e8ee3c61f"
+    },
+    {
+      "path": "data/inputs/125/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/125/input.png",
+      "bytes": 901891,
+      "sha256": "8fbb194f9aec1950cac54c061adda291f30bce1243ba2419c6af7ce37f634d50"
+    },
+    {
+      "path": "data/inputs/126/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/126/input.png",
+      "bytes": 808630,
+      "sha256": "55badb1d12512f82ad4cf8a461c50210d96c2d7f39b15e7f41bd2df9b6b235dc"
+    },
+    {
+      "path": "data/inputs/127/description.yaml",
+      "bytes": 152,
+      "sha256": "74d9c687f98ecc0659020ee1d2e0ec0a9022990319d4db0ed11f23cb93bb5891"
+    },
+    {
+      "path": "data/inputs/127/input.png",
+      "bytes": 747572,
+      "sha256": "38e4b88748c5da0d7e917b762c872336367af45fa9837f85bd817491857b923c"
+    },
+    {
+      "path": "data/inputs/127/input2.png",
+      "bytes": 594184,
+      "sha256": "2d6f1e0bf24700ca1184f5a5920abfc679899297aa155c86b81c558409039975"
+    },
+    {
+      "path": "data/inputs/128/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/128/input.png",
+      "bytes": 805434,
+      "sha256": "55db12e413bd220a47a392ba8295ebb26832d6df5c1eb27519eed680a56cce4f"
+    },
+    {
+      "path": "data/inputs/129/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/129/input.png",
+      "bytes": 679153,
+      "sha256": "38c8b84f1bbfa1ec0ba8e2c112ad0f242a63f3e141a9a7fa13612de0261074ee"
+    },
+    {
+      "path": "data/inputs/130/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/130/input.png",
+      "bytes": 594831,
+      "sha256": "5d07fa93358a2be887b49fd6c5c74f00c9538eccf3fe2ca68edd42e99b21b72a"
+    },
+    {
+      "path": "data/inputs/131/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/131/input.png",
+      "bytes": 825151,
+      "sha256": "b4d645fc39509a9041ade0f0d388a860183062d7f67e13e461ead0353f81929d"
+    },
+    {
+      "path": "data/inputs/132/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/132/input.png",
+      "bytes": 842652,
+      "sha256": "4c298fda4267db225071922f92cf15de7d5ec1482adcc54a3cb5c8e87e2c5e32"
+    },
+    {
+      "path": "data/inputs/133/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/133/input.png",
+      "bytes": 684985,
+      "sha256": "78621be2ced6e87bda731a62945c2d2c9422bb955bfe1748b6bbba22086f38db"
+    },
+    {
+      "path": "data/inputs/134/description.yaml",
+      "bytes": 152,
+      "sha256": "74d9c687f98ecc0659020ee1d2e0ec0a9022990319d4db0ed11f23cb93bb5891"
+    },
+    {
+      "path": "data/inputs/134/input.png",
+      "bytes": 848578,
+      "sha256": "0a5ef8bc22ce404e81f1a9b1293d22320602a40f5ea9333d9053ea99a333ccff"
+    },
+    {
+      "path": "data/inputs/134/input2.png",
+      "bytes": 827083,
+      "sha256": "a66af7621452b6db98ff93e8811de6f22ca195ea1b22d0b1cb139d689fc79b62"
+    },
+    {
+      "path": "data/inputs/135/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/135/input.png",
+      "bytes": 491397,
+      "sha256": "333250bad73d404d2c834b3d24e5dc376992368d11ce93f1da47091517b64543"
+    },
+    {
+      "path": "data/inputs/136/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/136/input.png",
+      "bytes": 823363,
+      "sha256": "259f53ca34c7918e710d17e19d2ce67eaca17b69472b1950e8abb71a893c8fe6"
+    },
+    {
+      "path": "data/inputs/137/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/137/input.png",
+      "bytes": 578980,
+      "sha256": "bd0de3b8b6dca0e14efce0dd9a25f887ead37c159da36f0492f98b6e1157b87f"
+    },
+    {
+      "path": "data/inputs/138/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/138/input.png",
+      "bytes": 597239,
+      "sha256": "8b4d011b91306a2e035709b09d1bd0ebe2fc532cd9a966be145ec3688ed23709"
+    },
+    {
+      "path": "data/inputs/139/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/139/input.png",
+      "bytes": 891316,
+      "sha256": "4762a669a31855e32fa4fe70065ea9da2f764744654b4281d9feb7cabdd4a947"
+    },
+    {
+      "path": "data/inputs/140/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/140/input.png",
+      "bytes": 732973,
+      "sha256": "14e7cb8d97b13eead8a60cad515d62c49c4cf4611d90b0295efe0f780c5815c4"
+    },
+    {
+      "path": "data/inputs/141/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/141/input.png",
+      "bytes": 883611,
+      "sha256": "c73e58a6ee9e835bf1caeb45cc36b3043124e64760d250bc24305a2083b3861a"
+    },
+    {
+      "path": "data/inputs/142/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/142/input.png",
+      "bytes": 585506,
+      "sha256": "bddc6c627ef1f5ba3a1ac0e32fbd2811e58646ed7944b7f5d2168767604ede81"
+    },
+    {
+      "path": "data/inputs/143/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/143/input.png",
+      "bytes": 1000839,
+      "sha256": "2ed12649376883e21a04a23b4128787a3cf951c31859558461e61ccfd6854963"
+    },
+    {
+      "path": "data/inputs/145/description.yaml",
+      "bytes": 152,
+      "sha256": "74d9c687f98ecc0659020ee1d2e0ec0a9022990319d4db0ed11f23cb93bb5891"
+    },
+    {
+      "path": "data/inputs/145/input.png",
+      "bytes": 833412,
+      "sha256": "842543a98cadb6dcce727abd7f7110f0f951fb2422a4606671de6f9950f151f3"
+    },
+    {
+      "path": "data/inputs/145/input2.png",
+      "bytes": 680424,
+      "sha256": "519ba13236b1754e05a5184226be53567acb2f75f96e06d7167c4262133a92ba"
+    },
+    {
+      "path": "data/inputs/146/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/146/input.png",
+      "bytes": 726427,
+      "sha256": "8408982fc69b5153a6463a7c9c1367a300a57ed5efa4f7f8eb5acb93dd7728b5"
+    },
+    {
+      "path": "data/inputs/147/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/147/input.png",
+      "bytes": 926277,
+      "sha256": "133a21619a583a23fe131500fe17098760433d7845323304007e1688e3ecad97"
+    },
+    {
+      "path": "data/inputs/148/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/148/input.png",
+      "bytes": 1179948,
+      "sha256": "23171fe7b889bffa3db9f13cece11d7b24a0cd90551f2f8e512a3b809d5bd5ef"
+    },
+    {
+      "path": "data/inputs/149/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/149/input.png",
+      "bytes": 876480,
+      "sha256": "107134139b8ed141bc1ce347e8f8d30ee3f919c3419025a7835d55f497fdbbbb"
+    },
+    {
+      "path": "data/inputs/150/description.yaml",
+      "bytes": 136,
+      "sha256": "f8e7570f01656fafac2586b85fe3a5e470566610fc907dc93b135a0d6cb66ac1"
+    },
+    {
+      "path": "data/inputs/150/input.png",
+      "bytes": 908929,
+      "sha256": "e0817e2f9a627601b15593536dd58785c662d87dc3350b3a4a86a3d0711b1493"
+    },
+    {
+      "path": "docs/agent_drawing_view.md",
+      "bytes": 16166,
+      "sha256": "3c6c1d81f39068c169a168cdbe65a5ff05ab3f89584b37f271e63c1d6065dccf"
+    },
+    {
+      "path": "docs/main-inspect-dimensions.md",
+      "bytes": 11045,
+      "sha256": "4b567c594b0a7f531fe914263cfa4b708d9fd66787a00f3cfb378ab101bf8edc"
+    },
+    {
+      "path": "integrations/pi/assets/system-prompt-base-only.md",
+      "bytes": 1978,
+      "sha256": "e477303969d50cdcb16809b94364ef762929371d9eb2c8bdfa122f5d82365721"
+    },
+    {
+      "path": "integrations/pi/assets/system-prompt-geometry-repair.md",
+      "bytes": 1914,
+      "sha256": "26a9e7fab9e4151fe26490cc87429bd14ba05d79897e83dc9ca92639561a538a"
+    },
+    {
+      "path": "integrations/pi/assets/system-prompt-main-view-reflect.md",
+      "bytes": 4464,
+      "sha256": "25cfc1990aa06911f87854aa0bb24b4a10912cc9d4693c6c4df9cc30a7330a60"
+    },
+    {
+      "path": "integrations/pi/assets/system-prompt.md",
+      "bytes": 2587,
+      "sha256": "3c409edf685d8a148118c3fe260c9a8f40210b5d96e95f3eb6d75e8d5c823676"
+    },
+    {
+      "path": "integrations/pi/baselines/cadcodeverify/adapter.mjs",
+      "bytes": 6382,
+      "sha256": "2955941932e6f45051f47dc248890c60190160861a44ce6cd03d64da9b31a33e"
+    },
+    {
+      "path": "integrations/pi/baselines/cadcodeverify/adapter.test.mjs",
+      "bytes": 1802,
+      "sha256": "c206a5a56fe337652021ae9fbcad541991658c675e1c79d71750814a448d6ed0"
+    },
+    {
+      "path": "integrations/pi/baselines/cadcodeverify/README.md",
+      "bytes": 1663,
+      "sha256": "e9263b442e90747eb983b016c744768dd239c3370aff8ef614b3271cd5a03428"
+    },
+    {
+      "path": "integrations/pi/baselines/cadcodeverify/source.json",
+      "bytes": 1367,
+      "sha256": "e01a2257e17b9602a384e0cad9e218ef0da0a3a9ffc354740643608dae75a6fc"
+    },
+    {
+      "path": "integrations/pi/baselines/common.mjs",
+      "bytes": 5585,
+      "sha256": "67e418452b2957ffa2f2bb5246f15169ebebfd2bef3e973018d65d349aa497f6"
+    },
+    {
+      "path": "integrations/pi/baselines/common.test.mjs",
+      "bytes": 8335,
+      "sha256": "da2417a3ce17dd03cb9f7128d4fbead168c5854679cbf0868c1ea9b02b28154e"
+    },
+    {
+      "path": "integrations/pi/baselines/config.json",
+      "bytes": 326,
+      "sha256": "345c403bc392bac75d443f68d1c38bb9997db3ee6a14493c241c610ba3bff7a9"
+    },
+    {
+      "path": "integrations/pi/baselines/container-protocol.mjs",
+      "bytes": 13284,
+      "sha256": "1d9273aa935e13b2259a7511ab29c0954d0077b398a07dcd0b629c0ce7550cfb"
+    },
+    {
+      "path": "integrations/pi/baselines/Dockerfile.evaluator",
+      "bytes": 439,
+      "sha256": "b7bbaa1f54ac32f3545f4d6b8e13d1aa493a497d604abe5009e6c0a0ef031d77"
+    },
+    {
+      "path": "integrations/pi/baselines/Dockerfile.evaluator.dockerignore",
+      "bytes": 112,
+      "sha256": "a5c537fd1e8f291c13eb6befd40b70b8a47cacef083bffb91592fc123c6d57f6"
+    },
+    {
+      "path": "integrations/pi/baselines/evaluate.sh",
+      "bytes": 1314,
+      "sha256": "6e2edd2829c0e448ff1948281c00354b5b5d6741d3165ec1f868bbcbe850ae0b"
+    },
+    {
+      "path": "integrations/pi/baselines/execution-guide.mjs",
+      "bytes": 2020,
+      "sha256": "af08c98a97c2ee5c57e0c2c6c7f9018ea89cf12e7f2da7519e9cf7f03319f884"
+    },
+    {
+      "path": "integrations/pi/baselines/execution-guide.test.mjs",
+      "bytes": 1720,
+      "sha256": "f2e3795fae9619bc7e12b6db926cf636432ad32b86fa7278f34dcc28a9cd4738"
+    },
+    {
+      "path": "integrations/pi/baselines/geometry_diagnostics.py",
+      "bytes": 2102,
+      "sha256": "988ed8e930bbc27f4b274e6afdf1654439b6fab83f003c01ca9b743003c7d84f"
+    },
+    {
+      "path": "integrations/pi/baselines/itercad/Dockerfile",
+      "bytes": 907,
+      "sha256": "3f77dde8735990cdd178cf356ea1df6b69cd148ca35ebe5fcf15a0dfa24f29ae"
+    },
+    {
+      "path": "integrations/pi/baselines/itercad/Dockerfile.dockerignore",
+      "bytes": 318,
+      "sha256": "28d7d456dc85d4a66a84238b3ba6eaa565023cad61f0e774dce79c858bae2e09"
+    },
+    {
+      "path": "integrations/pi/baselines/itercad/native.py",
+      "bytes": 30555,
+      "sha256": "ad381ae0afd76941a9676dcc6a798556bef9274f09b418218d42c6ff8ac55993"
+    },
+    {
+      "path": "integrations/pi/baselines/itercad/README.md",
+      "bytes": 8371,
+      "sha256": "8dd8e6469a8773fdc173799d9a152551d1643dda43fc8b17adb657426a39e20d"
+    },
+    {
+      "path": "integrations/pi/baselines/itercad/requirements.txt",
+      "bytes": 119,
+      "sha256": "3487be3e7f402d22f317ce3460dd9383609d8557bb1417094447660b8638a676"
+    },
+    {
+      "path": "integrations/pi/baselines/itercad/setup.sh",
+      "bytes": 1002,
+      "sha256": "8bd05960dde10c24deb444b57fcc0b7690111de3b244d9512fbb01664750aa66"
+    },
+    {
+      "path": "integrations/pi/baselines/itercad/source.json",
+      "bytes": 3054,
+      "sha256": "5c985cd792f0adaf579846914d9f1414b4e15c05b92cc871fbc5fafd9000fc0f"
+    },
+    {
+      "path": "integrations/pi/baselines/itercad/test_native.py",
+      "bytes": 14578,
+      "sha256": "255aa360e5f3ba05dc488412d9700c01d3adf30cf386309f820735321ea1ccba"
+    },
+    {
+      "path": "integrations/pi/baselines/models.example.json",
+      "bytes": 458,
+      "sha256": "0954dd156a8bd2bcb371d093e36cd0ad5cc74acc24741bad2615e99a18cd64e7"
+    },
+    {
+      "path": "integrations/pi/baselines/protocol.test.mjs",
+      "bytes": 11092,
+      "sha256": "b394b40a0971e9d3e8f99e3f00ba87c71a8f32c60cd4f49e0e889757d82b39f1"
+    },
+    {
+      "path": "integrations/pi/baselines/README.md",
+      "bytes": 15314,
+      "sha256": "a2db66fa1770d685b0a328573adcab1361b1101cfd50b7b7d6841c60d5dd2511"
+    },
+    {
+      "path": "integrations/pi/baselines/run-all.mjs",
+      "bytes": 14526,
+      "sha256": "8d1fdd3d0d0f0f03c55d098fcb60e3b08096a30e77e1a70d1e8541cd31c2b23f"
+    },
+    {
+      "path": "integrations/pi/baselines/run-all.sh",
+      "bytes": 144,
+      "sha256": "e75159f647cb90a1961302d0a0618bc5a839f6a497efadb7b41162658657ca62"
+    },
+    {
+      "path": "integrations/pi/baselines/run-all.test.mjs",
+      "bytes": 5866,
+      "sha256": "758ce8491cfb3195ecc98dbc38641e626aa6687613e43b460414aad76de37c43"
+    },
+    {
+      "path": "integrations/pi/baselines/run.mjs",
+      "bytes": 15476,
+      "sha256": "9eddbec8c71b7036b99200aca33f9069a408e0846d8bf28a00bcf301db9a3992"
+    },
+    {
+      "path": "integrations/pi/baselines/seek-cad/adapter.mjs",
+      "bytes": 12673,
+      "sha256": "80ed67203fcbad9b06256d22f20f1f238391ef3959fc92ad8f3e51ec4559125d"
+    },
+    {
+      "path": "integrations/pi/baselines/seek-cad/adapter.test.mjs",
+      "bytes": 5712,
+      "sha256": "470146770f1667b3566951eff4056f367aa0f2604171b18d80a9a4d5fc3cf1dc"
+    },
+    {
+      "path": "integrations/pi/baselines/seek-cad/README.md",
+      "bytes": 7909,
+      "sha256": "90e2ce23e11736fe8796e59565b5c6096999c08458b231472cf0d919c6ed0d2a"
+    },
+    {
+      "path": "integrations/pi/baselines/seek-cad/render_steps.py",
+      "bytes": 12218,
+      "sha256": "e12359f68eff13f370fe3d18b3d871da5df10c0f4569d16fc217332433bcfa2a"
+    },
+    {
+      "path": "integrations/pi/baselines/seek-cad/source_contract.json",
+      "bytes": 2862,
+      "sha256": "e5af4d055f1519581af6fa62da4c83fe61e0ef8858bf02ed5b98506634059391"
+    },
+    {
+      "path": "integrations/pi/baselines/seek-cad/test_render_steps.py",
+      "bytes": 4152,
+      "sha256": "e31e239601c3f6b98f0dc47cefefbb78df1928eb3debbc6628f58279f69a33b7"
+    },
+    {
+      "path": "integrations/pi/baselines/setup.sh",
+      "bytes": 1015,
+      "sha256": "16959faf340638f0778f8136414de1e8f89085ad057245e3726e0d131953a37d"
+    },
+    {
+      "path": "integrations/pi/baselines/test_geometry_diagnostics.py",
+      "bytes": 2190,
+      "sha256": "9419dd0483497bc3a40e4faf130ff4204c7dbcb50314eb4b97164ecd69e0dcb5"
+    },
+    {
+      "path": "integrations/pi/baselines/vanilla/historical-direct-reflect-102.txt",
+      "bytes": 1033,
+      "sha256": "bbcfd88d66932db4594f6b8b42375a2b7bbf57093ccc33ae4b1bfaaa4b7276b6"
+    },
+    {
+      "path": "integrations/pi/baselines/vanilla/source.json",
+      "bytes": 628,
+      "sha256": "5dd74191d13d59b06ce4478378a3f9d30ff2d3021681dea2ddb599f4720e5eda"
+    },
+    {
+      "path": "integrations/pi/baselines/verification/case140-20261105.json",
+      "bytes": 7540,
+      "sha256": "06b973553b1d2364cfa33f8affe306462dc2bce01a5ce21d148b7e8cc7504307"
+    },
+    {
+      "path": "integrations/pi/docker/Dockerfile",
+      "bytes": 2893,
+      "sha256": "c47907be7fa27ba8d8797ae6c1ed9cbb1d44789db7aa2933eb1c8a2b2ddbd388"
+    },
+    {
+      "path": "integrations/pi/docker/Dockerfile.dockerignore",
+      "bytes": 310,
+      "sha256": "2e744cf21dbaac69cf7c53e5554a38eec1301aac6b84aff62792fc3d2a44dddc"
+    },
+    {
+      "path": "integrations/pi/docker/entrypoint.sh",
+      "bytes": 1226,
+      "sha256": "6ca5fe5a346400f100248e5767cfe87d5d339433ec32f7d27620a56c37fce15f"
+    },
+    {
+      "path": "integrations/pi/package-lock.json",
+      "bytes": 170619,
+      "sha256": "4944e693808f8c094563106731112b2b46838bb045184ecdb7d5093d38d600c8"
+    },
+    {
+      "path": "integrations/pi/package.json",
+      "bytes": 1519,
+      "sha256": "d5d894bceee0380bee55e14c4bdccab9f0f928ecbc051a567cc0246a1a31af0e"
+    },
+    {
+      "path": "integrations/pi/portable-full-method/config.json",
+      "bytes": 418,
+      "sha256": "dd0ac52ab92995825e5fdec40c3eed22ef74e2ceb5b25ec796aea8feac9a9713"
+    },
+    {
+      "path": "integrations/pi/portable-full-method/credentials.md",
+      "bytes": 3811,
+      "sha256": "c6237d2c03395aa7177e5904d2391860ab9450165c0533a1296f79a4251516d8"
+    },
+    {
+      "path": "integrations/pi/portable-full-method/models.example.json",
+      "bytes": 601,
+      "sha256": "4b30222244a739069779bcfe72dd4693765ba8d30e430b6e249ca7f00e20b496"
+    },
+    {
+      "path": "integrations/pi/portable-full-method/README.md",
+      "bytes": 9081,
+      "sha256": "40fff0e83e065df830043409c300325ad65ccfa1a79838e05fdfef195da873ae"
+    },
+    {
+      "path": "integrations/pi/portable-full-method/run.mjs",
+      "bytes": 21939,
+      "sha256": "279f493c14958b6bfcbc4fc2287f15ff4a31012c74fe1f0e7be342ecc71e1ab1"
+    },
+    {
+      "path": "integrations/pi/portable-full-method/run.test.mjs",
+      "bytes": 15419,
+      "sha256": "3123a1b910517ed92375da71cf48789719d60730bbbf330949acc92ad75e980d"
+    },
+    {
+      "path": "integrations/pi/portable-full-method/setup.sh",
+      "bytes": 797,
+      "sha256": "3f821d8bb0f860c0d46009892cff93b171279267483c6c01d780bfead148354c"
+    },
+    {
+      "path": "integrations/pi/src/adopt-shape-candidate.ts",
+      "bytes": 16787,
+      "sha256": "c4e6f7d61904016e26c145cf6b56005118ec7d6feb6707ec7ca2929f0215560d"
+    },
+    {
+      "path": "integrations/pi/src/cad-tool.ts",
+      "bytes": 5245,
+      "sha256": "4a7583e10377012665fd0b22a2e8458583a2c3256a9c999fcadc1ed8cf7d1301"
+    },
+    {
+      "path": "integrations/pi/src/causal-repair.ts",
+      "bytes": 25364,
+      "sha256": "acdd7fd9630f59d56fb64937a28abf0aee040b5999d6f719bdb5b2a1d5f1626d"
+    },
+    {
+      "path": "integrations/pi/src/cli.ts",
+      "bytes": 19259,
+      "sha256": "124b362049f7418d6ab80260682118e5741605615893e65c75b83809abb6cd82"
+    },
+    {
+      "path": "integrations/pi/src/code-construction.ts",
+      "bytes": 41294,
+      "sha256": "adf2700652664a56d6fa655dc37b873169d8e17fb6708d3d22bed8988a55c43b"
+    },
+    {
+      "path": "integrations/pi/src/container-agent.ts",
+      "bytes": 5059,
+      "sha256": "004e31b10fe7872026f9d96d24b739b8b3ad2d49ac46255675662f34f90d5ec2"
+    },
+    {
+      "path": "integrations/pi/src/context.ts",
+      "bytes": 4974,
+      "sha256": "4d435f3aa3df6e38571908280ef296ea9175bd928bf0316125693aaaef5977b6"
+    },
+    {
+      "path": "integrations/pi/src/dimension-annotations.ts",
+      "bytes": 25372,
+      "sha256": "023a09581f33fe9bd0c46722b030f1a03ae2b32f276da523f613ef70bf1fd2c4"
+    },
+    {
+      "path": "integrations/pi/src/docker-worker.ts",
+      "bytes": 19017,
+      "sha256": "78e72e628e32159219eab1fad4da32155cef21add02631382de1b69ea56e0e5b"
+    },
+    {
+      "path": "integrations/pi/src/drawing-reflection-acceptance-cli.ts",
+      "bytes": 22533,
+      "sha256": "aec82bf5ccb1ecb35fdb194840bd399ab30f48fdca5fba8d87cf72d2105a4241"
+    },
+    {
+      "path": "integrations/pi/src/drawing-reflection-continuation-cli.ts",
+      "bytes": 20051,
+      "sha256": "e012a58b3e0dcc17e30a18adfbae15c1608bbd1d094ca4e2cd048f162134a261"
+    },
+    {
+      "path": "integrations/pi/src/drawing-reflection-only-cli.ts",
+      "bytes": 8845,
+      "sha256": "dc4deede76e81f0a006c224fd788e295fb472f7508d7f0fd60d6f5e8be142d6e"
+    },
+    {
+      "path": "integrations/pi/src/drawing-reflection-refinement-cli.ts",
+      "bytes": 21620,
+      "sha256": "a686c0ec9fef81e6378cd8a58e437a1fddf901e682149e0f852c8645bbc987bc"
+    },
+    {
+      "path": "integrations/pi/src/drawing-reflection-refinement.ts",
+      "bytes": 48233,
+      "sha256": "541efdb23b4d55a83d92054578c58b254e2b9263159b04ff36bf16d7c9cb0673"
+    },
+    {
+      "path": "integrations/pi/src/drawing-reflection.ts",
+      "bytes": 138627,
+      "sha256": "ebc4eea7f694b02c4aac94274f9dcdd24050addbf902bc896cf6ee8eff80b0f6"
+    },
+    {
+      "path": "integrations/pi/src/drawing-scale-agent-cli.ts",
+      "bytes": 11093,
+      "sha256": "0035b283878ee8e182a13b6f1d068f822abc595446bb2f93d22143bb67db9d86"
+    },
+    {
+      "path": "integrations/pi/src/drawing-scale-agent.ts",
+      "bytes": 21671,
+      "sha256": "8b069c6c427f89042021a6657daef94fae19a6d8abf046030334689b0365d46d"
+    },
+    {
+      "path": "integrations/pi/src/drawing-search-cli.ts",
+      "bytes": 13817,
+      "sha256": "f8adef292f4e63d474ad1f49be823a9b4a1248830598d0f4d47550364d120b91"
+    },
+    {
+      "path": "integrations/pi/src/errors.ts",
+      "bytes": 441,
+      "sha256": "eeedec2882cdc1d33fb050031db6cfde34f8fd55ee398b1c700bf74928a7ae8c"
+    },
+    {
+      "path": "integrations/pi/src/experiment-model-profile.ts",
+      "bytes": 1496,
+      "sha256": "e5fb1adaa2ecf9213f7086e9f45d836ad9e11e24c9ee19cc1b6bca7cf6ea7b75"
+    },
+    {
+      "path": "integrations/pi/src/files.ts",
+      "bytes": 766,
+      "sha256": "34e84d77dd0cbd95c6087c5434aed913393fb2277e2dec6b0d5dbc793016b55c"
+    },
+    {
+      "path": "integrations/pi/src/fixtures.ts",
+      "bytes": 4505,
+      "sha256": "c66ef8bdecafb419aa38ca496b8f0c793f57636df0ab38519c0656016567e2a3"
+    },
+    {
+      "path": "integrations/pi/src/geometry-repair-instructions.ts",
+      "bytes": 2846,
+      "sha256": "89a84d455868f5e296cb90ea4a6d84abc332f519930105a602628e266b547119"
+    },
+    {
+      "path": "integrations/pi/src/local-worker.ts",
+      "bytes": 3871,
+      "sha256": "eabdecdf5dc1062a032566afeb5afca18c06b99fb0543ce9a3a08a1569a28511"
+    },
+    {
+      "path": "integrations/pi/src/main-self-reflect-continuation-cli.ts",
+      "bytes": 74656,
+      "sha256": "be19a2f3d66adcb1b515142330fc9349e7bc44e56ac5c94eefd149c8e6aaff15"
+    },
+    {
+      "path": "integrations/pi/src/main-self-reflect.ts",
+      "bytes": 25794,
+      "sha256": "415dc2dbf739b5f35096af9c22b00bdcbbbf071a7e6a2a0496ac887ebb0c4a40"
+    },
+    {
+      "path": "integrations/pi/src/main-view-reflect-continuation-cli.ts",
+      "bytes": 35307,
+      "sha256": "d983bb391a306758c108468a1357b37db1c4dab72ecfe7a6c9acd4f09e20857b"
+    },
+    {
+      "path": "integrations/pi/src/main-view-reflect.ts",
+      "bytes": 70223,
+      "sha256": "e8cd5c8526db8cf272771d3f2901aeeb7e15cdfe9397730153dcd869cecc78eb"
+    },
+    {
+      "path": "integrations/pi/src/migration.ts",
+      "bytes": 3063,
+      "sha256": "6a7ee305481912bafd879e9bcd2673f8e77b1fe4cfa9cadfda147a0f13e06296"
+    },
+    {
+      "path": "integrations/pi/src/optional-reflect-turn.ts",
+      "bytes": 3369,
+      "sha256": "ed25b0cccbba8efcdda464bf8832c70821480f619e798de47dd225dfe7753555"
+    },
+    {
+      "path": "integrations/pi/src/pausable-deadline.ts",
+      "bytes": 2897,
+      "sha256": "965601a4210ef564e1f228f8609a0f6f928814be7c16f393f0dff04a40fb0cd8"
+    },
+    {
+      "path": "integrations/pi/src/prompts.ts",
+      "bytes": 29044,
+      "sha256": "b51970f1805e1a69c41f3f1a485673a961b01dcaed0929f5fab5ba2d67043378"
+    },
+    {
+      "path": "integrations/pi/src/repair-geometry.ts",
+      "bytes": 32021,
+      "sha256": "4d15ff3eec238c0e3b1f61119d7c2d83700fa31007ada7df07ac708407ce37a2"
+    },
+    {
+      "path": "integrations/pi/src/results.ts",
+      "bytes": 3633,
+      "sha256": "124f70704b08566ff7079df809ac1a0f5aef3812350da17bdc123a4dbea35a2d"
+    },
+    {
+      "path": "integrations/pi/src/runner.ts",
+      "bytes": 52469,
+      "sha256": "1c4f20ec45df37e9205d1418ccb5fd9be63e1c92020dba4fee2859c3e2c5cfab"
+    },
+    {
+      "path": "integrations/pi/src/shape-feedback.ts",
+      "bytes": 27255,
+      "sha256": "86da8658777682e131baa61f6602bdf5da822a21d45c96094039bd3375444742"
+    },
+    {
+      "path": "integrations/pi/src/solution.ts",
+      "bytes": 3184,
+      "sha256": "e2ff1cb8419634662d1d3956fc2d31d136ff756c26d7af0ac24eedb7e2fc5798"
+    },
+    {
+      "path": "integrations/pi/src/target-annotations.ts",
+      "bytes": 23623,
+      "sha256": "c69bdba683ef47bce5acfeab28c6b0259d5ec7615130b40f59624742b351223e"
+    },
+    {
+      "path": "integrations/pi/src/types.ts",
+      "bytes": 30025,
+      "sha256": "bf0995195a123b2b122ae8649a372bc9014c88e1c1be3c5f02f45f10b754b9a5"
+    },
+    {
+      "path": "integrations/pi/src/visual-diagnostic-cli.ts",
+      "bytes": 10434,
+      "sha256": "5b8450bc3d9108b9a35b5f2a4de9edd8872561cbfb6c768e140b37fa9e0d05c1"
+    },
+    {
+      "path": "integrations/pi/src/visual-diffs.ts",
+      "bytes": 18947,
+      "sha256": "1b104d9d927d1ab8f18dffe5f881ac6c46c5a171f1ade7c7ca2258f18d49e7a8"
+    },
+    {
+      "path": "integrations/pi/src/visual-findings.ts",
+      "bytes": 20394,
+      "sha256": "aeab8826454a60bb21fcccbc96354a1220e208ada14c0c2b25d1c1ac33616691"
+    },
+    {
+      "path": "integrations/pi/src/visual-review.ts",
+      "bytes": 39979,
+      "sha256": "dfd9b3e841bc52f2e2c1be3981e399ae7a21df2dd282845981286627cc36a05f"
+    },
+    {
+      "path": "integrations/pi/test/adopt-shape-candidate.test.ts",
+      "bytes": 23878,
+      "sha256": "d0b5d31df65331d2bb84ee93ecd302c9b6f85c175c5e7d35c1a03082e8538084"
+    },
+    {
+      "path": "integrations/pi/test/cad-tool.test.ts",
+      "bytes": 3911,
+      "sha256": "493324883b1dac436a15b190f5d97942b6a50b09e93684d5076fc6e5a01986b0"
+    },
+    {
+      "path": "integrations/pi/test/causal-repair.test.ts",
+      "bytes": 12773,
+      "sha256": "5fa1c5ffe9ea21a83960c7a5c1aa7ddd62ab19d9d6ab2a4899c54729eb3edfe3"
+    },
+    {
+      "path": "integrations/pi/test/code-construction-lifecycle.test.ts",
+      "bytes": 8332,
+      "sha256": "800936e74cf5e528f7bb7919e7671fbe44b049881ff56403e27dcc424a69dc49"
+    },
+    {
+      "path": "integrations/pi/test/context.test.ts",
+      "bytes": 2656,
+      "sha256": "eaed22f2f0a24b574b7d119467cd6a742af8fa20808cb526f282131016e0705a"
+    },
+    {
+      "path": "integrations/pi/test/dimension-annotations.test.ts",
+      "bytes": 23282,
+      "sha256": "033998cd06b14321fd9e20f2617bdbf79bf6b64c4c9069f7883c12d287629a13"
+    },
+    {
+      "path": "integrations/pi/test/docker-worker.test.ts",
+      "bytes": 8860,
+      "sha256": "f63e8d199ba7c48c3d408b47337d5393c09752cddd1a939f29587c46494cd281"
+    },
+    {
+      "path": "integrations/pi/test/drawing-reflection-pipeline.test.ts",
+      "bytes": 87055,
+      "sha256": "572b60e5f897eafec644bb0d1c2ce42c943cff482bbfa3233c2d1e68950dd61b"
+    },
+    {
+      "path": "integrations/pi/test/drawing-reflection-refinement.test.ts",
+      "bytes": 22492,
+      "sha256": "d5be2a5adae5fb0a484d01addefaa6d10e7bc1ae833305b1e6ce73a700554464"
+    },
+    {
+      "path": "integrations/pi/test/drawing-reflection.test.ts",
+      "bytes": 32188,
+      "sha256": "adf909948da2b2cd85eb067ec1798ade75cb041193d737cdcc1ef688e8462e69"
+    },
+    {
+      "path": "integrations/pi/test/drawing-scale-agent.test.ts",
+      "bytes": 13087,
+      "sha256": "495d6a1693f1563c79be1edfa403938ae22cc961892a7d23a1465d1377a0eb9b"
+    },
+    {
+      "path": "integrations/pi/test/drawing-segmentation.test.ts",
+      "bytes": 36130,
+      "sha256": "b8e483def81f1ef940e870ca61f787f98a26f75f4368a78e2cf0780e0108e70e"
+    },
+    {
+      "path": "integrations/pi/test/experiment-model-profile.test.ts",
+      "bytes": 1611,
+      "sha256": "d7750bb9a3fa7ad2185a05cdcbf6397ae1e370a971a59d996d11b7b6df6d47f6"
+    },
+    {
+      "path": "integrations/pi/test/fixtures.test.ts",
+      "bytes": 2697,
+      "sha256": "4e38d75699887cc6bbc3103e4a825162b986d30e881bf1b8837f83f21fd47223"
+    },
+    {
+      "path": "integrations/pi/test/main-self-reflect-cli.test.ts",
+      "bytes": 29839,
+      "sha256": "018d4eb304bb6aa8a10705eed9c0fe589dfda31412040ca598fa82fa84d1a622"
+    },
+    {
+      "path": "integrations/pi/test/main-self-reflect.test.ts",
+      "bytes": 42477,
+      "sha256": "cef62fc17c6ea9f8ce6648fce71e357b881baf1dc6a13372d9e9c570ccf598e9"
+    },
+    {
+      "path": "integrations/pi/test/main-view-reflect-cli.test.ts",
+      "bytes": 8118,
+      "sha256": "128ab6b5aa55c058c0ad17aaa6a9d3b997164144191812161d103edda7765a84"
+    },
+    {
+      "path": "integrations/pi/test/main-view-reflect.test.ts",
+      "bytes": 54991,
+      "sha256": "f5adef1ca3f8c7a8a281677f7b969e4934315ed42aa190165c3fd58d82b742bf"
+    },
+    {
+      "path": "integrations/pi/test/migration.test.ts",
+      "bytes": 4595,
+      "sha256": "62d2108564de3a61b2b02c6f017ba93e524ce8ad88d4f6dd5aaf872c5af2b14b"
+    },
+    {
+      "path": "integrations/pi/test/optional-reflect-resume.test.ts",
+      "bytes": 22226,
+      "sha256": "8223f32b2fb736a3ed156de48a3cd30c2373b71faded4c8af4efd0c58da32ca5"
+    },
+    {
+      "path": "integrations/pi/test/optional-reflect-turn.test.ts",
+      "bytes": 9853,
+      "sha256": "edcfe11575eac6e8786e36292aa0aea4f4d85bc3598efab978010dc2ea479401"
+    },
+    {
+      "path": "integrations/pi/test/pausable-deadline.test.ts",
+      "bytes": 2604,
+      "sha256": "bd28bd9d9af45a8cc8784d49eb29cf5e4a340faa24906c5879ee271ace6ffa1b"
+    },
+    {
+      "path": "integrations/pi/test/png-fixture.ts",
+      "bytes": 2489,
+      "sha256": "978b5725c441603c329cd37be4446d6f70a4f039489f789fbc73431daa4e0b8c"
+    },
+    {
+      "path": "integrations/pi/test/reflection-prompt.test.ts",
+      "bytes": 6571,
+      "sha256": "8a5995d424691aa1592afd630f4b299f405e882574e59c4df848590cb036fc03"
+    },
+    {
+      "path": "integrations/pi/test/repair-geometry.test.ts",
+      "bytes": 43854,
+      "sha256": "03f1d6da7fb97211dfeb7c6ce56b8981ed90bd20059d94fe15c83eebd8464ec9"
+    },
+    {
+      "path": "integrations/pi/test/restricted-session-cancellation.test.ts",
+      "bytes": 9134,
+      "sha256": "1ecdb67679167ab288b4e898072fbc94c70dcaa3b32781f3fa22c434f6c85045"
+    },
+    {
+      "path": "integrations/pi/test/restricted-session-timeouts.test.ts",
+      "bytes": 1063,
+      "sha256": "101b865b0aa0aab3f96bec29c0160cc98c2f75d9d8f55a7e90cf2714d3d22a04"
+    },
+    {
+      "path": "integrations/pi/test/results.test.ts",
+      "bytes": 2026,
+      "sha256": "4a0f48ebb9f5e358732455e65ef4ea966e27d09249308ca467214058ec3f6738"
+    },
+    {
+      "path": "integrations/pi/test/runner.test.ts",
+      "bytes": 24464,
+      "sha256": "c36529f5be094b3055254f62b5d2a6d6bf95d8315fb6f607361c82c0819864ce"
+    },
+    {
+      "path": "integrations/pi/test/shape-feedback.test.ts",
+      "bytes": 42415,
+      "sha256": "38ccf84733fee80367e957c2dfb3a93e9ec5114cefc5786cd8087fbd87b36f94"
+    },
+    {
+      "path": "integrations/pi/test/solution.test.ts",
+      "bytes": 5582,
+      "sha256": "6b7eee301da9a98d0da3bc497fd6b1afa26480dc4eabe3654cb10891eb0a69b7"
+    },
+    {
+      "path": "integrations/pi/test/target-annotations.test.ts",
+      "bytes": 14411,
+      "sha256": "66b836b5131de148656391dd54670880bc06d96604f1a91d67257a7401e56f96"
+    },
+    {
+      "path": "integrations/pi/test/visual-diffs.test.ts",
+      "bytes": 10524,
+      "sha256": "6d1cf296663b2fd0d6e18a74ab062de88d979e1a2d72f4d9c0b6223f00b555a2"
+    },
+    {
+      "path": "integrations/pi/test/visual-findings.test.ts",
+      "bytes": 12370,
+      "sha256": "230266e00a9344836bc7f2694f715382940eb744386d7486c1c1286872d139ba"
+    },
+    {
+      "path": "integrations/pi/test/visual-review.test.ts",
+      "bytes": 10485,
+      "sha256": "fcbd77be0b74185098a2eba98b674f50f8b2080e9161abbc77b1c7366eac8fcd"
+    },
+    {
+      "path": "integrations/pi/tsconfig.json",
+      "bytes": 514,
+      "sha256": "a08e0a4cb13da37899cf8bcd0453f751cff962beab75b18cb9c712bfc2be245d"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11386,
+      "sha256": "b7c2666a39f34434177de540d73cfaa2968670311a5ad08dd94ee6637709acc9"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 2704,
+      "sha256": "d29d9cde48548b9236c2740d1dc7d7e8923bd89881692ceb37b5cf77c044f06e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 10192,
+      "sha256": "526cc4e18e1d5562393fde6902df6281df916ca1eae9f6f150a7acbb1eb07a37"
+    },
+    {
+      "path": "src/cadgenbench/__init__.py",
+      "bytes": 1019,
+      "sha256": "2773effbf4149809cdeac785b702eb00b219b5a3a1629a5b34ac474d5be0958a"
+    },
+    {
+      "path": "src/cadgenbench/baseline/__init__.py",
+      "bytes": 1127,
+      "sha256": "fa2ae35edf594419c2059a44f1550ea5badf04781d1fe492f36f5174f2992cbb"
+    },
+    {
+      "path": "src/cadgenbench/baseline/_cli.py",
+      "bytes": 18372,
+      "sha256": "31779c6f15ebbf1309d4750769977120fac7ccfc359c00d9a59fb65d59d2f5fc"
+    },
+    {
+      "path": "src/cadgenbench/baseline/agent.py",
+      "bytes": 37498,
+      "sha256": "2e48944198f2830bb3efad210478242ec5e600dfefa8d5876bb2fa2ccd92aac2"
+    },
+    {
+      "path": "src/cadgenbench/baseline/build123d_cheat_sheet.md",
+      "bytes": 7254,
+      "sha256": "f1130ea1286db2c504921fcc36874c213c15d7cb551bd6ff96046fdcae7af8ed"
+    },
+    {
+      "path": "src/cadgenbench/baseline/cadquery_cheat_sheet.md",
+      "bytes": 3609,
+      "sha256": "05dbcd991a9e5cfff37c6c38823f9595d8beb6422eba125c7e61a6894154afd6"
+    },
+    {
+      "path": "src/cadgenbench/baseline/default_config.yaml",
+      "bytes": 1118,
+      "sha256": "23217a70d394c520d666098c9157ead83433657b94f03fd2d2f1d4e6b830585a"
+    },
+    {
+      "path": "src/cadgenbench/baseline/llm.py",
+      "bytes": 28626,
+      "sha256": "8d187e6750947b3a7f770b3410c7bca1cc2609689d58a047afa4d1cda45fe5a6"
+    },
+    {
+      "path": "src/cadgenbench/baseline/package.py",
+      "bytes": 7266,
+      "sha256": "53b74ce214338617ffdac6e4b6ca9e9f55a64f9a46a17b5e3dbc9700884df7a1"
+    },
+    {
+      "path": "src/cadgenbench/baseline/prompt.py",
+      "bytes": 12847,
+      "sha256": "b1e4f59e4bed0b53986ebde51d2e70ce1c366d2bed8ca87313ba89e4ee43e0a4"
+    },
+    {
+      "path": "src/cadgenbench/baseline/types.py",
+      "bytes": 10518,
+      "sha256": "5df277e6620932f6c214b22d261171e8ddb91601fffb8b79914edc5216aed754"
+    },
+    {
+      "path": "src/cadgenbench/cli.py",
+      "bytes": 4706,
+      "sha256": "dfe7ead474bddbacacc32bf183388f983c661042f712f86b9467a507db3ed297"
+    },
+    {
+      "path": "src/cadgenbench/common/__init__.py",
+      "bytes": 903,
+      "sha256": "adee9ebdfdd099157957a7df8fe29f740c09ab083299e1f13dba4b5f29acc9fc"
+    },
+    {
+      "path": "src/cadgenbench/common/artifacts.py",
+      "bytes": 16063,
+      "sha256": "0d6dedde5a1038734165b167b3f537a127d2319bdaf55da197b6a8cd61313cba"
+    },
+    {
+      "path": "src/cadgenbench/common/axes_gizmo.py",
+      "bytes": 7017,
+      "sha256": "b4b3fff579fe424518e2033d545e7b1eb45e6b50eaa2a405e2e696aedcaba0d5"
+    },
+    {
+      "path": "src/cadgenbench/common/baseline_models.py",
+      "bytes": 1355,
+      "sha256": "b6e3ced116bae5fb70a9e9323437f75c452cdcc0fb6775c1575b84c1df05d4e7"
+    },
+    {
+      "path": "src/cadgenbench/common/camera_presets.py",
+      "bytes": 4848,
+      "sha256": "66127a6862568365b8e2eedc4f530f4bc5dbbd9ae5a9e9c59e0af9ab3c9772db"
+    },
+    {
+      "path": "src/cadgenbench/common/edit_diff.py",
+      "bytes": 20550,
+      "sha256": "3e1e65def3968b04f2b849ca1bbfe47cc341034f20ea7c8d5a8d981c9f67d389"
+    },
+    {
+      "path": "src/cadgenbench/common/imaging.py",
+      "bytes": 1697,
+      "sha256": "73709cd4cb8f7fb8e03d2375f90e61e57bc156e3ad8e02447d34a7c8a2ead837"
+    },
+    {
+      "path": "src/cadgenbench/common/measurements.py",
+      "bytes": 4851,
+      "sha256": "af1caca06bfcc03eb3beed8499f74e8b4e9e15f98be9a85e876d04d76b71234a"
+    },
+    {
+      "path": "src/cadgenbench/common/mesh.py",
+      "bytes": 31459,
+      "sha256": "50b4312cf55bd4d6aaa3475f35f08879fc40f850b6b594f464814508c1df3a28"
+    },
+    {
+      "path": "src/cadgenbench/common/paths.py",
+      "bytes": 5503,
+      "sha256": "7b0f897c6a576551aaa604b0a7e375e1c0d3ba123a7196aeb0acc9fe7d64224a"
+    },
+    {
+      "path": "src/cadgenbench/common/profiling.py",
+      "bytes": 3085,
+      "sha256": "d6624a63e2cd149d7df4272b2d27878b748e471ec54627610d9f231dd14b7137"
+    },
+    {
+      "path": "src/cadgenbench/common/validity.py",
+      "bytes": 32892,
+      "sha256": "981fc7efe8180088c7417ac3bf63854778b69f9b134cccb712e61281279f6bf3"
+    },
+    {
+      "path": "src/cadgenbench/common/viewer.py",
+      "bytes": 40577,
+      "sha256": "7849b585083a6c864b030ce910b57850a3f2cd3cb82f3f3a0bb5086cd2b44527"
+    },
+    {
+      "path": "src/cadgenbench/eval/__init__.py",
+      "bytes": 1531,
+      "sha256": "d0d37eebc885dbb7f54dfd39e5060c9ddb4f8a54aa804d15c547bbafddceedb8"
+    },
+    {
+      "path": "src/cadgenbench/eval/_cli.py",
+      "bytes": 12606,
+      "sha256": "3e894c9271e1ee86e642a6909550f5ad4fb5ce2d7d0f7837018effcc89abc28d"
+    },
+    {
+      "path": "src/cadgenbench/eval/alignment.py",
+      "bytes": 18267,
+      "sha256": "b128ebb92bf126b9418bc1661a5fc1e89f51e79bd1ef90c195263ff3036ebe7c"
+    },
+    {
+      "path": "src/cadgenbench/eval/booleans.py",
+      "bytes": 6073,
+      "sha256": "1713637c56808130685375eb9f322c849cff428b1f8363c5c47b17bad2ee6000"
+    },
+    {
+      "path": "src/cadgenbench/eval/edit_baseline.py",
+      "bytes": 8591,
+      "sha256": "dbd95a77737dec1a287152ea019775cd9987718e0d380a3f708ce5a31addc73b"
+    },
+    {
+      "path": "src/cadgenbench/eval/evaluate.py",
+      "bytes": 33409,
+      "sha256": "4941955c753dac725468da07cc1decb11ff3968fb6e16c4b1c57504283205889"
+    },
+    {
+      "path": "src/cadgenbench/eval/interface_match_viz.py",
+      "bytes": 15911,
+      "sha256": "4ad54ee5d27d97c4f9b1a3cb50ebf0a4dbf04ffdba00fcfe62688b6da7b82249"
+    },
+    {
+      "path": "src/cadgenbench/eval/interface_match.py",
+      "bytes": 27246,
+      "sha256": "04f44c2250175efd8189abde4956f1a799a6fa85ce5b5a463525cce9beed26ae"
+    },
+    {
+      "path": "src/cadgenbench/eval/render_candidate.py",
+      "bytes": 1854,
+      "sha256": "d6bbea30ef49b9defcf433cf9e74bbe3be857342dfd472aa679c1ee5cab94d2a"
+    },
+    {
+      "path": "src/cadgenbench/eval/report/__init__.py",
+      "bytes": 903,
+      "sha256": "b8d222c700edd15501847fe1edecfb211f0f2b0d96327cf2cf223afe065832bd"
+    },
+    {
+      "path": "src/cadgenbench/eval/report/single_run.py",
+      "bytes": 69418,
+      "sha256": "5bf1fe145807f3bf8d7e43a68787563b2e01d4a3a2ddc4694c7d298c05a88f5c"
+    },
+    {
+      "path": "src/cadgenbench/eval/run_summary.py",
+      "bytes": 7623,
+      "sha256": "7699b1f01d4feb67be9bff72f0e99a8071ffb6e5acb42cda65d4253a1cfff53b"
+    },
+    {
+      "path": "src/cadgenbench/eval/sampling.py",
+      "bytes": 15163,
+      "sha256": "a765e65ab4fd02597bc6b6bdd4b50895e3aac3fb45493814d0d39bd650ea0251"
+    },
+    {
+      "path": "src/cadgenbench/eval/shape_similarity.py",
+      "bytes": 25876,
+      "sha256": "71b737e36be53a64356535a79ffa55cc6aecfbc254e84809d1c595ae403179c8"
+    },
+    {
+      "path": "src/cadgenbench/eval/topo_match.py",
+      "bytes": 15250,
+      "sha256": "e701330406696d9d55b96463e79510ac26b842173e3577ada04775955a07a043"
+    },
+    {
+      "path": "src/cadgenbench/integrations/__init__.py",
+      "bytes": 59,
+      "sha256": "498552a771c225ac754d12a837114ce687daf88ebf39c1a790f91208fc72dd82"
+    },
+    {
+      "path": "src/cadgenbench/integrations/brep_feedback.py",
+      "bytes": 7453,
+      "sha256": "4862d5619102633135e05376c7c9527eed7eaac73aeee217d2747b4fce38124d"
+    },
+    {
+      "path": "src/cadgenbench/integrations/code_construction_probe.py",
+      "bytes": 16172,
+      "sha256": "0b1d60a9a14d9e0f5ec2f076b7b5666545c019334bea14aeb3eab8193f4acb13"
+    },
+    {
+      "path": "src/cadgenbench/integrations/contour_feedback.py",
+      "bytes": 50642,
+      "sha256": "f7ff422f539d542121977d387fcc03081674c9843e9df314fc3aba98b7840e3a"
+    },
+    {
+      "path": "src/cadgenbench/integrations/dimension_annotations.py",
+      "bytes": 14174,
+      "sha256": "52a3db9852c16a270cb4cb2ca57f4a9fd2add8683637494e86799e95e3ec69dc"
+    },
+    {
+      "path": "src/cadgenbench/integrations/line_support.py",
+      "bytes": 9577,
+      "sha256": "cc198ea59686908601407a888d072150e116e0c0d31fe3e3bd77983cc33618c4"
+    },
+    {
+      "path": "src/cadgenbench/integrations/pi_worker.py",
+      "bytes": 192420,
+      "sha256": "2f34bb357adf97770e4c3f6d598e46e38f96c4c21aabbda4b4ac679c9e27cf09"
+    },
+    {
+      "path": "src/cadgenbench/integrations/shape_feedback.py",
+      "bytes": 16276,
+      "sha256": "75d74c14c09e2d49a9b14330f0d6e06fc843c3ed21cb60bc6b426f9e80928eb1"
+    },
+    {
+      "path": "src/cadgenbench/tools/__init__.py",
+      "bytes": 319,
+      "sha256": "4a185f50d07d85133b7f9ab7273dfc0b60c137f4e83c5e5ac7cddf26dc64fa94"
+    },
+    {
+      "path": "src/cadgenbench/tools/_cli.py",
+      "bytes": 10145,
+      "sha256": "80f3b3da6227cf16c5a2d39acbab5cc0481d644bf806b9a13ad1aac0d1959daa"
+    },
+    {
+      "path": "src/cadgenbench/tools/cad_inspector_geometry.py",
+      "bytes": 12819,
+      "sha256": "fa51dc77f6d40e4733ea43be055e40a17ea4bd42e4ccce02b1910708170a0a8d"
+    },
+    {
+      "path": "src/cadgenbench/tools/cad_inspector.py",
+      "bytes": 37060,
+      "sha256": "9189126944ae88bc80dcdf749b42cd13878a98b7143ad9020b35f953f63f8a76"
+    },
+    {
+      "path": "src/cadgenbench/tools/drawing_scorer_experiment.py",
+      "bytes": 166635,
+      "sha256": "1f935365e48889f98f94bc131606002b49f44742b28ee187cfe55c57c63ce314"
+    },
+    {
+      "path": "src/cadgenbench/tools/drawing_view.py",
+      "bytes": 186991,
+      "sha256": "08d0bea5d0206aef3693f056a4e2d6d55602aec022e57a94cb9db886fa1e1d07"
+    },
+    {
+      "path": "src/cadgenbench/tools/README.md",
+      "bytes": 19911,
+      "sha256": "2ea9ed2ed9eb559263845917010922ced00eac2d0f8e90ddac2203a0eff07ff8"
+    }
+  ],
+  "payload_file_count": 296,
+  "payload_bytes": 43968460,
+  "hash_scope": "All copied payload files listed above. This manifest excludes itself; the adjacent archive SHA256 covers it.",
+  "exclusions": [
+    "credentials",
+    "ground truth",
+    "results",
+    "old artifacts",
+    "node_modules",
+    "compiled dist",
+    ".git",
+    "adjacent pi checkout"
+  ],
+  "model_calls": 0,
+  "docker_invoked": false
+}

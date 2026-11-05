@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cadgenbench"
+version = "0.1.0"
+description = "CADGenBench: a benchmark for AI-driven CAD generation"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+dependencies = [
+    # BREP / STEP authoring + reading. Pulls cadquery-ocp (OCP) as a
+    # transitive dep; manylinux + macOS wheels both exist on PyPI as of
+    # build123d 0.10 / cadquery-ocp 7.9, so the entire stack installs via
+    # pip with no conda-forge detour.
+    "build123d>=0.10.0",
+    # CAD geometry + mesh utilities (shared by the benchmark and the baseline)
+    "trimesh",
+    "manifold3d",
+    "numpy",
+    "scipy",
+    "open3d",
+    "Pillow",
+    "pyyaml",
+    # Headless STEP -> PNG renderer (used by both eval reports and the
+    # baseline's per-turn visual feedback to the LLM). PyVista wraps VTK,
+    # which auto-uses GPU OpenGL when present and software OpenGL (Mesa
+    # / EGL swrast) on CPU-only hosts. No subprocess, no Chromium.
+    "pyvista",
+    # Used by cadgenbench.common.paths to optionally snapshot-download
+    # the fixture inputs + GT from HF dataset repos (when
+    # $CADGENBENCH_DATA_REPO / $CADGENBENCH_DATA_GT_REPO are set).
+    # No-op for pip-installed users who rely on the wheel-bundled
+    # `_data/` fallback; cost is one small extra wheel + zero network
+    # work at import time (snapshot_download is lazy-imported).
+    "huggingface_hub",
+]
+
+[project.optional-dependencies]
+baseline = [
+    # The reference baseline agent talks to LLM providers via LiteLLM and
+    # loads API keys from .env via python-dotenv. Not needed for evaluating
+    # candidate submissions produced by some other generator.
+    "litellm",
+    "python-dotenv",
+]
+cadquery = [
+    # Optional alternative Python/OpenCascade authoring backend for the
+    # baseline agent. Kept OUT of core deps on purpose: `cadquery` pulls
+    # `cadquery-ocp` (the VTK-variant OCP, pins vtk==9.5.2) whose libTKIVtk
+    # needs VTK 9.5, which is incompatible with the headless vtk-osmesa /
+    # vtk-egl wheels (cp312 only ships 9.3) used by the eval + leaderboard
+    # images. build123d uses cadquery-ocp-novtk, so a default install stays
+    # VTK-clean. The CadQuery backend runs the agent's code in a separate
+    # interpreter, so cadquery is only required where that backend runs.
+    "cadquery",
+]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[project.scripts]
+cadgenbench = "cadgenbench.cli:main"
+cgb = "cadgenbench.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cadgenbench"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+filterwarnings = [
+    "ignore::DeprecationWarning:ezdxf",
+]

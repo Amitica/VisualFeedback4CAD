@@ -1,0 +1,8 @@
+cadquery==2.6.1
+openai>=1.0,<3
+numpy>=2,<3
+scipy>=1.14,<2
+trimesh>=4,<5
+matplotlib>=3.8,<4
+Pillow>=10,<13
+PyYAML>=6,<7

@@ -1,0 +1,17 @@
+{
+  "method_id": "cadcodeverify-drawing-adaptation",
+  "paper_title": "Generating CAD Code with Vision-Language Models for 3D Designs",
+  "paper_url": "https://openreview.net/forum?id=BLWaTeucYX",
+  "paper_arxiv": "2410.05340",
+  "venue": "ICLR 2025",
+  "repository": "https://github.com/Kamel773/CAD_Code_Generation",
+  "commit": "33dcecd6087ff7b8a4454b1ba4d56504a6364399",
+  "retrieved_date": "2026-11-05",
+  "source_contains_inference_loop": false,
+  "source_license_file": null,
+  "implementation": "Independent paper-protocol reimplementation; the official repository contains CADPrompt data and methodology diagrams but no inference runner at this commit.",
+  "preserved": ["2–5 positive verification questions", "Yes/No/Unclear visual answers", "feedback excludes Yes answers", "all-Yes stopping", "two refinement rounds", "four fixed azimuth renders separated by 90 degrees"],
+  "adaptations": ["Natural-language target replaced by engineering drawings and their task description", "Shared build123d execution backend replaces original CadQuery when used in the controlled comparison runner", "Fixed elevated-camera convention is explicit because official code/camera elevation was not released", "CADGenBench evaluation preserves physical scale; paper-normalized metrics are not reused"],
+  "no_gt_in_feedback": true,
+  "paper_metrics_reproduced": false
+}

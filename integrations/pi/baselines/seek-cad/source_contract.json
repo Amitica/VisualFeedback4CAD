@@ -1,0 +1,56 @@
+{
+  "baseline_id": "seek-cad-svf-drawing-adapted",
+  "paper_title": "Seek-CAD: A Self-refined Generative Modeling for 3D Parametric CAD Using Local Inference via DeepSeek",
+  "paper_url": "https://arxiv.org/html/2505.17702v3",
+  "official_repository": "https://github.com/Sunny-Hack/Seek-CAD",
+  "source_commit": "230947d70960cb58bea76fe75d46d3796c28ca34",
+  "source_license": "MIT",
+  "official_code_availability": "Public dataset and SSR conversion/visualization library; no released end-to-end inference/refinement driver in the audited commit.",
+  "native_method": {
+    "input": "text description",
+    "generator": "DeepSeek-R1-32B-Q4 via Ollama",
+    "critic": "Gemini-2.0",
+    "representation": "SSR triples plus CapType topology references",
+    "retrieval": "BGE-M3 dense + inverted-index full text, dense weight 0.3, top 3 from a 10000-model corpus",
+    "refinement": "Step-wise current-entity highlighting and previous-entity transparency plus final model image, judged against generator CoT; explicit positive/negative feedback; one refinement round in experimental settings"
+  },
+  "adaptation": {
+    "input": "engineering drawing pages",
+    "initial": "shared formally executed build123d Initial CAD",
+    "retained": [
+      "real semantic construction-stage geometry",
+      "current-operation focus with prior geometry translucent",
+      "final model image",
+      "explicit independent positive/negative critique",
+      "one bounded code-refinement round"
+    ],
+    "changed": [
+      "drawing pages supplied to critic",
+      "public modeling plan replaces inaccessible private reasoning",
+      "build123d replaces SSR/CapType authoring",
+      "shared Initial rather than original RAG generation front-end",
+      "shared configured VLM may replace R1/Gemini for controlled comparison"
+    ],
+    "required_guard": "Instrumentation final solid must match Initial using world-coordinate BRep symmetric difference and bounding-box tolerances; no final-image-only fallback",
+    "not_claimed": [
+      "native end-to-end Seek-CAD reproduction",
+      "original SSR/RAG ablation",
+      "paper metrics reproduced",
+      "exact author prompt or exact 10000-example retrieval split recovered"
+    ]
+  },
+  "verification": {
+    "model_runs": 0,
+    "status": "offline_adapter_and_geometry_smoke_passed",
+    "node_tests": 4,
+    "python_geometry_and_render_tests": 3,
+    "render_visually_inspected": true,
+    "official_inference_pipeline_reproduced": false
+  },
+  "official_public_corpus": {
+    "path": "external_baselines/seek-cad/Dataset/preprocessed_txt2ssr/preprocessed_txt2ssr_samples.zip",
+    "sha256": "c1862190facb57bee1a2513a71958cad8dcf6d46d1cddb87ac07ce648f491880",
+    "used_by_svf_adapter": false,
+    "note": "Retained as source provenance, not substituted for the unreleased exact 10000-example retrieval split."
+  }
+}

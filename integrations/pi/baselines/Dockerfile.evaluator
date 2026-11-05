@@ -1,0 +1,11 @@
+ARG CAD_BASELINE_IMAGE=cadgenbench-pi-agent:baseline-protocols-20261105-v1
+FROM ${CAD_BASELINE_IMAGE}
+
+# Evaluation uses OpenMP-linked geometry/metric libraries, even when generation
+# and ordinary CAD rendering work without them. Keep this upgrade independent
+# from any in-flight agent image.
+USER root
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+USER 10001:10001

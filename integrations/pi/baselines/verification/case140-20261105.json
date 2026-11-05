@@ -1,0 +1,204 @@
+{
+  "description": "Real local one-command case140 runtime acceptance; summary only, original model trajectories and candidate files are not distributed in this source repository.",
+  "verified_at": "2026-11-05T10:06:50.407913+00:00",
+  "status": "passed",
+  "public_command_exit_code": 0,
+  "fixture_id": "140",
+  "model": "ucloud/gpt-5.6-sol",
+  "thinking_level": "low",
+  "methods_completed": 5,
+  "valid_watertight_steps": 5,
+  "fresh_initial": true,
+  "prior_candidates_or_responses_reused": false,
+  "shared_initial_immutable": true,
+  "all_three_repair_initial_bindings_match": true,
+  "ground_truth_accessed": false,
+  "geometry_accuracy_scored": false,
+  "runtime_code_sha256": {
+    "run-all.sh": "e75159f647cb90a1961302d0a0618bc5a839f6a497efadb7b41162658657ca62",
+    "run-all.mjs": "8d1fdd3d0d0f0f03c55d098fcb60e3b08096a30e77e1a70d1e8541cd31c2b23f",
+    "run.mjs": "9eddbec8c71b7036b99200aca33f9069a408e0846d8bf28a00bcf301db9a3992",
+    "common.mjs": "67e418452b2957ffa2f2bb5246f15169ebebfd2bef3e973018d65d349aa497f6",
+    "container-protocol.mjs": "1d9273aa935e13b2259a7511ab29c0954d0077b398a07dcd0b629c0ce7550cfb",
+    "execution-guide.mjs": "af08c98a97c2ee5c57e0c2c6c7f9018ea89cf12e7f2da7519e9cf7f03319f884",
+    "geometry_diagnostics.py": "988ed8e930bbc27f4b274e6afdf1654439b6fab83f003c01ca9b743003c7d84f",
+    "cadcodeverify/adapter.mjs": "2955941932e6f45051f47dc248890c60190160861a44ce6cd03d64da9b31a33e",
+    "seek-cad/adapter.mjs": "80ed67203fcbad9b06256d22f20f1f238391ef3959fc92ad8f3e51ec4559125d",
+    "seek-cad/render_steps.py": "e12359f68eff13f370fe3d18b3d871da5df10c0f4569d16fc217332433bcfa2a",
+    "itercad/native.py": "ad381ae0afd76941a9676dcc6a798556bef9274f09b418218d42c6ff8ac55993"
+  },
+  "image_ids": {
+    "cadgenbench-pi-agent:baseline-protocols-20261105-v1": "sha256:a4f408ef36449c1ea07ca8b9d4cf28d3d521c0ab33347891a19e1991f028f544",
+    "cadgenbench-itercad-native:55998c4": "sha256:57cba920bb28e4bacacaaec87961af4a1707bb65e7cfa1ce037a986b94052002"
+  },
+  "candidates": {
+    "initial": {
+      "source": "results/baselines/one-click-case140-20261105-v4/initial/evaluation/140/solution.py",
+      "step": "results/baselines/one-click-case140-20261105-v4/initial/evaluation/140/output.step",
+      "source_sha256": "2ea143c28214f910dad26bfbdfc90f41ae541166d2b476c1a83a983811db2c7b",
+      "step_sha256": "3b981b20d2d4736b984eae74d60adc1c96ae55f53a22c784124f23530117a824",
+      "validation": {
+        "is_valid": true,
+        "is_watertight": true,
+        "solid_count": 1,
+        "shell_count": 1,
+        "face_count": 73,
+        "volume": 699743.19,
+        "bbox": {
+          "x": 240.0,
+          "y": 202.0,
+          "z": 130.0
+        },
+        "topology_errors": []
+      }
+    },
+    "vanilla": {
+      "source": "results/baselines/one-click-case140-20261105-v4/vanilla/evaluation/140/solution.py",
+      "step": "results/baselines/one-click-case140-20261105-v4/vanilla/evaluation/140/output.step",
+      "source_sha256": "db91a5c69e0e26cfeb822d3699ba6da5ba73e8a15d9c3e92c5418c5489d36bc4",
+      "step_sha256": "c7502e8511435b175549882539e8bce3a4b85a40ae743fe4e0d6c5d70fb01b69",
+      "validation": {
+        "is_valid": true,
+        "is_watertight": true,
+        "solid_count": 1,
+        "shell_count": 1,
+        "face_count": 86,
+        "volume": 700472.12,
+        "bbox": {
+          "x": 240.0,
+          "y": 204.5,
+          "z": 130.0
+        },
+        "topology_errors": []
+      }
+    },
+    "cadcodeverify": {
+      "source": "results/baselines/one-click-case140-20261105-v4/cadcodeverify/evaluation/140/solution.py",
+      "step": "results/baselines/one-click-case140-20261105-v4/cadcodeverify/evaluation/140/output.step",
+      "source_sha256": "db8051ab551ef67552da5b6801132112968aee939002c850a23f7eab67c7d6ad",
+      "step_sha256": "041c61d9f66b1ff679926c396b6e072dcc687fa7a1edb7bf2703c290777ebb47",
+      "validation": {
+        "is_valid": true,
+        "is_watertight": true,
+        "solid_count": 1,
+        "shell_count": 1,
+        "face_count": 56,
+        "volume": 655104.3,
+        "bbox": {
+          "x": 215.0,
+          "y": 202.0,
+          "z": 130.0
+        },
+        "topology_errors": []
+      }
+    },
+    "seek-cad": {
+      "source": "results/baselines/one-click-case140-20261105-v4/seek-cad/evaluation/140/solution.py",
+      "step": "results/baselines/one-click-case140-20261105-v4/seek-cad/evaluation/140/output.step",
+      "source_sha256": "19f08fc1dc1c13944931872dd5e78738af758b8fe3fece524e54ff5fb38e97d8",
+      "step_sha256": "d72382fba13ab0213e23c4829732f1b23b0cff2273ba2ebdfa38c64678908378",
+      "validation": {
+        "is_valid": true,
+        "is_watertight": true,
+        "solid_count": 1,
+        "shell_count": 1,
+        "face_count": 77,
+        "volume": 702986.74,
+        "bbox": {
+          "x": 240.0,
+          "y": 202.0,
+          "z": 130.0
+        },
+        "topology_errors": []
+      }
+    },
+    "itercad": {
+      "source": "results/baselines/one-click-case140-20261105-v4/itercad/cases/140/solution.py",
+      "step": "results/baselines/one-click-case140-20261105-v4/itercad/cases/140/output.step",
+      "source_sha256": "b4230a7c0ac3fb15196565174cf669bd4237ca5b2a1a3960d5e3ecdf1692e577",
+      "step_sha256": "7fa9bc24b62ebfa782c2c23ba5110287cefcf5d1d5080a7d6ef630e90080d3d8",
+      "validation": {
+        "is_valid": true,
+        "is_watertight": true,
+        "solid_count": 1,
+        "shell_count": 1,
+        "face_count": 94,
+        "volume": 792298.54,
+        "bbox": {
+          "x": 240.0,
+          "y": 200.0,
+          "z": 130.0
+        },
+        "topology_errors": []
+      }
+    }
+  },
+  "paper_protocols": {
+    "cadcodeverify": {
+      "status": "verified_with_task_adaptation_caveats",
+      "model_calls": 8,
+      "refinements": 2,
+      "stop_reason": "refinement_budget"
+    },
+    "seek-cad": {
+      "status": "verified_with_task_adaptation_caveats",
+      "model_calls": 4,
+      "refinements": 1,
+      "stop_reason": "one_stepwise_refinement"
+    }
+  },
+  "itercad": {
+    "status": "passed",
+    "real_Responses_call_count": 9,
+    "selected_attempt": 0,
+    "exported_turn": 2,
+    "attempts": [
+      {
+        "attempt": 0,
+        "status": "success",
+        "turns": 4,
+        "turn_statuses": [
+          "exec_success",
+          "exec_success",
+          "exec_success",
+          "done_by_model"
+        ],
+        "successful_executions": 3,
+        "API_calls": 4,
+        "rendered_feedback_images": 3,
+        "final_cd": -1.0
+      },
+      {
+        "attempt": 1,
+        "status": "success",
+        "turns": 5,
+        "turn_statuses": [
+          "exec_success",
+          "exec_error",
+          "exec_success",
+          "exec_success",
+          "exec_success"
+        ],
+        "successful_executions": 4,
+        "API_calls": 5,
+        "rendered_feedback_images": 4,
+        "final_cd": -1.0
+      }
+    ]
+  },
+  "baseline_scope": {
+    "cadcodeverify": "drawing-adapted paper protocol",
+    "seek-cad": "SVF-only shared-Initial drawing adaptation; excludes SSR/RAG",
+    "itercad": "official CadQuery inference protocol with common GPT backbone, not trained checkpoint reproduction"
+  },
+  "tests": {
+    "node": 37,
+    "geometry_helper": 3,
+    "itercad": 22
+  },
+  "limitations": [
+    "Runtime verification and valid/watertight geometry are not GT geometric accuracy.",
+    "CADCodeVerify and Seek-CAD SVF are documented drawing-task adaptations.",
+    "IterCAD uses its official inference loop with GPT, not its trained checkpoint."
+  ]
+}

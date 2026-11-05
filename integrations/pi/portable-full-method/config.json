@@ -1,0 +1,14 @@
+{
+  "experiment_id": "gpt56-sol-low-full-method",
+  "provider": "ucloud",
+  "model": "gpt-5.6-sol",
+  "thinking_level": "low",
+  "cases": ["102", "103", "145", "146"],
+  "image": "cadgenbench-pi-agent:full-method-gpt56-low-v1",
+  "data_inputs_dir": "data/inputs",
+  "generation_timeout_minutes": 120,
+  "view_search_timeout_minutes": 180,
+  "repair_timeout_minutes": 120,
+  "search_cpus": 2,
+  "search_memory": "6g"
+}

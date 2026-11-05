@@ -1,0 +1,13 @@
+**
+!external_baselines/
+!external_baselines/itercad/
+!external_baselines/itercad/eval/
+!external_baselines/itercad/eval/**
+!external_baselines/itercad/LICENSE
+!integrations/
+!integrations/pi/
+!integrations/pi/baselines/
+!integrations/pi/baselines/itercad/
+!integrations/pi/baselines/itercad/**
+**/__pycache__
+**/*.pyc

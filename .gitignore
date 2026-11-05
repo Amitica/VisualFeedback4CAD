@@ -1,0 +1,15 @@
+**/node_modules/
+**/dist/
+**/__pycache__/
+**/.pytest_cache/
+**/*.pyc
+results/
+artifacts/
+external_baselines/
+.env
+.env.*
+auth.json
+credentials.json
+models.json
+*.pem
+*.key

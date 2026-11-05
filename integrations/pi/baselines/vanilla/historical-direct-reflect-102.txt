@@ -1,0 +1,11 @@
+Continue CADGenBench fixture 102 in this exact existing Pi session.
+
+The controller preserved the previous formal solution.py, output.step, render, result, and session under /workspace/baseline/. Never edit anything under baseline/.
+
+The attached images are only the original drawing pages from the original task. No additional images or external analysis are supplied.
+
+Review the original drawings and the live /workspace/solution.py yourself. Before deciding what to change, first call execute_build123d({}) on the current live source and inspect its fresh formal render.
+
+Identify any missing, extra, incorrectly shaped, incorrectly dimensioned, or misaligned geometry yourself. Then directly improve the live solution.py; do not stop at an explanation, plan, or separate analysis report. Preserve geometry that is already correct.
+
+Iterate with execute_build123d({}) and inspect every formal render. Continue until both solution.py and output.step differ from the preserved baseline, and the final STEP is valid and watertight.

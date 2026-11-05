@@ -1,0 +1,7 @@
+description: >
+  Reproduce the geometry as accurately as possible from the drawing.
+
+input_files:
+  - input.png
+
+input_type: text+image

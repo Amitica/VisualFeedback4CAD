@@ -1,0 +1,45 @@
+{
+  "method_id": "itercad-native-drawing-adaptation",
+  "paper_title": "IterCAD: An Iterative Multimodal Agent for Visually-Grounded CAD Generation and Editing",
+  "paper_arxiv": "2606.13368",
+  "paper_url": "https://arxiv.org/abs/2606.13368",
+  "repository": "https://github.com/KnowledgeXLab/IterCAD",
+  "commit": "55998c4a4537573f67ca241dedc52ee2840652ca",
+  "license": "Apache-2.0",
+  "official_checkpoint": "KnowledgeXLab/IterCAD-RL",
+  "checkpoint_url": "https://huggingface.co/KnowledgeXLab/IterCAD-RL",
+  "different_same_named_work_not_used": "2608.24020: Iterative Program Repair for CAD Code Generation from Orthographic Views",
+  "eval_file_sha256": {
+    "code_executor.py": "0312747321cb67c7ce745380db9866bc32f53822422e75c85c5bcdd7d030b3e0",
+    "evalution.py": "7f387505d32ed49a4d2a8aec498d39487dbe61ce2835b1e040d5316c1da72b04",
+    "gen_view.py": "faa53a6e2050ca5542328809ae42a60442b3a2f0279104b85f4602ec231a0f66"
+  },
+  "preserved": [
+    "Official system prompt",
+    "Official process_itercad_draw turn loop",
+    "Official CadQuery executor",
+    "Official fixed TOP/FRONT/RIGHT/ISO renderer, including overall dimensions and radii",
+    "max_turns=5",
+    "pass_k=2; all attempts retained"
+  ],
+  "adaptations": [
+    "CADGenBench generation images mapped to native gt_view_path reference-image field; no GT shape is supplied",
+    "CADGenBench textual request appended once to the native initial request; official system prompt and feedback loop retained",
+    "Multiple source pages use a contact sheet without page resizing",
+    "STEP and exact executed code captured from the same native execution object; no reexecution for export",
+    "Optional Responses API bridge converts the same complete visible text/image history; native ChatCompletions remains the default",
+    "Responses bridge omits temperature by default for reasoning-model compatibility and records the sampling difference",
+    "Without GT CD, prioritize an attempt containing executed code and terminating in exec_success or done_by_model over a last-successful-code fallback; within the same completion class retain unchanged official compare_results and its earlier-attempt tie rule",
+    "Final geometric evaluation uses separate CADGenBench evaluator and retains physical scale"
+  ],
+  "no_gt_attempt_selection": {
+    "policy_id": "terminal-completion-before-official-comparator-v1",
+    "reason": "Upstream extract_successful_final_cd recognizes terminal success but requires CD; without GT both a complete attempt and a failed-last-turn fallback otherwise return no CD and tie",
+    "same_class_comparison": "unchanged official compare_results",
+    "model_calls_added": 0,
+    "export_completion_gate_relaxed": false,
+    "historical_results_relabelled": false
+  },
+  "responses_api_reference": "https://developers.openai.com/api/docs/guides/migrate-to-responses",
+  "reproduction_boundary": "Using GPT-5.6 Sol or another model preserves the native inference protocol but does not reproduce IterCAD SFT/RL weights or its reported benchmark numbers."
+}

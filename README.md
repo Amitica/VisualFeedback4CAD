@@ -1,1 +1,232 @@
-# VisualFeedback4CAD
+# CADGenBench
+
+## VisualFeedback4CAD：方法与基线复现
+
+本仓库在 CADGenBench 基础上提供完整视觉反馈方法，以及 **Initial、Vanilla、CADCodeVerify、Seek-CAD SVF、IterCAD** 五种基线入口。2026-11-05 已使用 `gpt-5.6-sol / low` 在 case 140 上实际跑通全部入口；命令退出码 0，五份 STEP 均通过独立有效性与水密检查。详见[运行说明](integrations/pi/baselines/README.md)和[核验摘要](integrations/pi/baselines/verification/case140-20261105.json)。
+
+目标服务器需要 Linux、Git、Python 3、Node ≥22.19、npm 和可用的 Docker daemon；不要求宿主机安装 CAD 内核或 GPU。仓库包含 49 个公开生成输入；API 密钥、三维 GT 和原始运行结果不包含在源码中。
+
+先克隆，并创建目标机器自己的模型配置：
+
+```bash
+git clone https://github.com/Amitica/VisualFeedback4CAD.git
+cd VisualFeedback4CAD
+export PI_CODING_AGENT_DIR="$HOME/.pi/visualfeedback4cad"
+mkdir -p "$PI_CODING_AGENT_DIR"
+cp -n integrations/pi/baselines/models.example.json "$PI_CODING_AGENT_DIR/models.json"
+```
+
+将该 `models.json` 中的 `baseUrl` 占位地址改为自己的、支持图像输入和 Responses 的 API 根地址，确认支持 `gpt-5.6-sol`；然后在同一终端设置密钥：
+
+```bash
+read -rsp 'UCLOUD_API_KEY: ' UCLOUD_API_KEY
+echo
+export UCLOUD_API_KEY
+```
+
+首次运行加 `--setup`，自动安装 Node 依赖、构建镜像并获取固定版本的 IterCAD 官方源码：
+
+```bash
+bash integrations/pi/baselines/run-all.sh --setup \
+  --cases 140 --parallel 1 \
+  --output-dir results/baselines/case140-v1
+```
+
+单例完成后，运行全部 49 个生成案例：
+
+```bash
+bash integrations/pi/baselines/run-all.sh --all-generation --parallel 4 \
+  --output-dir results/baselines/all49-v1
+```
+
+输出目录须使用新名称。模型配置、单独运行、评测与适配差异见[基线说明](integrations/pi/baselines/README.md)；完整的 Main → View Search → 尺寸标注 → Main 修复流程见[完整方法说明](integrations/pi/portable-full-method/README.md)。Seek-CAD 在此为 SVF 适配版；IterCAD 使用官方推理流程搭配共同 GPT 模型，未复现其训练权重。本次核验不代表 GT 几何精度。
+
+## CADGenBench 基础项目
+
+[![HF Space](https://img.shields.io/badge/🤗%20Space-Leaderboard-yellow)](https://huggingface.co/spaces/HuggingAI4Engineering/CADGenBench)
+[![HF Dataset](https://img.shields.io/badge/🤗%20Dataset-Submissions-yellow)](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-submissions)
+[![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://www.python.org/downloads/)
+
+**CADGenBench** measures how well AI systems produce correct 3D
+mechanical parts. It covers two tasks:
+
+- **Generation**: from an engineering drawing of a part, produce a
+  valid, geometrically correct 3D model.
+- **Editing**: given an existing STEP file and a requested change,
+  apply that change.
+
+The benchmark is tool-agnostic. It makes no assumption about how you
+build the model (`build123d`, Autodesk Fusion, Onshape): a submission
+is one candidate file per sample, a STEP/BREP (`output.step` or
+`output.stp`). Each sample declares its task type (`generation` or
+`editing`) in `description.yaml`, and the same metrics and `output.step`
+contract apply to both.
+
+**Submit and view the leaderboard:**
+[`HuggingAI4Engineering/CADGenBench`](https://huggingface.co/spaces/HuggingAI4Engineering/CADGenBench).
+
+## What this repo contains
+
+This GitHub repo is the **source code behind the benchmark**. You do
+*not* need to install it to participate. It contains three parts:
+
+- **Scoring engine** (`src/cadgenbench/eval/`): the CAD Score pipeline
+  the leaderboard Space runs server-side against your submitted STEP/BREP
+  files.
+- **Docs** (`docs/`): metric definitions and the submission contract.
+- **Reference baseline** (`src/cadgenbench/baseline/`): an optional
+  example generator that turns a sample's description into a submission
+  (iteratively writes CAD code, validates the artifact, and repeats until
+  valid). It supports the `build123d` and CadQuery (STEP/BREP) backends.
+
+Evaluation runs on the Space, scoring submissions against the privately
+held ground truth in
+[`cadgenbench-data-gt`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data-gt).
+
+## How to submit
+
+Full contract (zip layout, `meta.json` fields, validity gate, optional
+canonical pose) is at
+[`docs/benchmark/submission.md`](docs/benchmark/submission.md). In
+short:
+
+1. For each sample in
+   [`cadgenbench-data`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data),
+   produce one `output.step` (or `output.stp`) candidate. Any tool works.
+2. Zip them as `submission.zip` with one folder per sample plus a
+   small `meta.json` at the root.
+3. Upload via the **Submit** tab on the
+   [leaderboard Space](https://huggingface.co/spaces/HuggingAI4Engineering/CADGenBench).
+
+The Space validates the zip, runs the eval, publishes a leaderboard
+row, and writes a per-submission HTML report you can share or download.
+
+Rows publish as unvalidated; promotion to a validated tier is a
+separate methodology review by the maintainer team. See
+[`docs/benchmark/validation.md`](docs/benchmark/validation.md) for the
+review process and accepted evidence types.
+
+A `sanity_check_submission.py` script shipped alongside the samples in
+`cadgenbench-data` lets you exercise the same validity gate locally
+before uploading; see
+[`docs/benchmark/submission.md#self-check-before-submitting`](docs/benchmark/submission.md#self-check-before-submitting).
+
+## Metrics
+
+The Space scores each candidate against ground truth on four
+axes:
+
+| Metric | What it captures |
+|---|---|
+| **Validity** | Is the BREP well-formed and watertight (meshes into a closed manifold)? Gate: failure zeroes the rest. |
+| **Shape similarity** | Geometry distance (surface distance F1, volume IoU). |
+| **Interface match** | Mating-feature correctness via authored keep-in / keep-out sub-volumes. |
+| **Topology match** | Betti numbers (b0, b1, b2) of the tessellated boundary. |
+
+The **CAD Score** is a weighted combination of the applicable component
+scores, gated by validity. See [`docs/metrics.md`](docs/metrics.md) for
+the full specification and [`docs/metrics/`](docs/metrics/) for the
+per-axis details.
+
+## Reference baseline (optional)
+
+The reference baseline is an iterative agent that writes `build123d`
+Python, renders the resulting STEP, and reviews those renders to refine
+its code in a loop until the part is valid. Use it to see what an
+end-to-end run looks like, or as a starting point for your own
+generator. It targets Python 3.12 and installs entirely via pip.
+
+```bash
+# 1. Python 3.12 env (venv, uv, conda, etc.)
+python -m venv .venv && source .venv/bin/activate
+
+# 2. Editable install with the baseline + dev extras
+pip install -e ".[baseline,dev]"
+
+# 3. Provider API keys for whichever model(s) you plan to run
+cp .env.example .env   # then fill in ANTHROPIC_API_KEY, OPENAI_API_KEY, etc.
+
+# 4. Point at the public sample-inputs dataset on the Hub. cadgenbench
+# snapshot-downloads it on first use and caches under
+# ~/.cache/huggingface/hub/.
+export CADGENBENCH_DATA_REPO=HuggingAI4Engineering/cadgenbench-data
+```
+
+Rendering (per-turn visual feedback to the agent) is in-process via
+PyVista/VTK; no Chromium or browser install is needed. On a bare
+headless Linux box VTK needs system OpenGL libs (e.g. `libgl1` /
+Mesa); macOS works out of the box.
+
+Verify:
+
+```bash
+cadgenbench --help
+pytest tests/ -q
+```
+
+`cgb` is a shorter alias.
+
+For an agent-facing STEP-to-engineering-drawing feedback loop, including exact
+hidden-line projection and constrained 2-D registration, see
+[`docs/agent_drawing_view.md`](docs/agent_drawing_view.md).
+
+Run on one sample, or in parallel on all of them:
+
+```bash
+# Single sample (sample names are the dataset's folder names, e.g. 101)
+cadgenbench baseline run 101 --model openai/gpt-5.5
+
+# All samples, in parallel
+cadgenbench baseline run --all --parallel 4 --model openai/gpt-5.5
+```
+
+By default the baseline writes `build123d` Python and exports `output.step`
+(`--backend build123d`). You can also target CadQuery (also STEP/BREP):
+
+```bash
+cadgenbench baseline run 101 --backend cadquery --model openai/gpt-5.5
+```
+
+**Using a different LLM.** `--model` takes any
+[LiteLLM](https://docs.litellm.ai/docs/providers) `provider/model`
+string; just set the matching key in `.env`. For example:
+
+```bash
+cadgenbench baseline run 101 --model anthropic/claude-opus-4-7   # ANTHROPIC_API_KEY
+cadgenbench baseline run 101 --model gemini/gemini-3.1-pro-preview  # GEMINI_API_KEY
+cadgenbench baseline run 101 --model openai/gpt-5.5             # OPENAI_API_KEY
+```
+
+See `cadgenbench baseline run --help` for the full flag set.
+
+Output lands at `results/<timestamp>_<model_slug>/<sample>/output.step`.
+The baseline only *generates* candidates; scoring against ground truth
+happens on the leaderboard Space after you submit.
+
+Bundle a run directory into a submission zip (top-level `meta.json` +
+one `output.step` candidate per sample, per the submission contract):
+
+```bash
+cadgenbench baseline package results/20260602_120000_gpt-5.5 \
+    --submitter "Your Name" --name "My agent v1" --agree
+```
+
+Writes `<run_dir>.zip`, ready to upload on the Space's **Submit** tab.
+`agree_to_publish` stays `false` unless you pass `--agree`.
+
+## Dataset
+
+Samples live in two HF dataset repos:
+
+- [`HuggingAI4Engineering/cadgenbench-data`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data):
+  **public**; inputs (descriptions, optional input STEPs and renders)
+  for every sample, plus the `sanity_check_submission.py` helper.
+- [`HuggingAI4Engineering/cadgenbench-data-gt`](https://huggingface.co/datasets/HuggingAI4Engineering/cadgenbench-data-gt):
+  **private**; ground truth (`ground_truth.step`, optional jig
+  sub-volumes, renders) and the labeller-facing `AUTHORING.md` /
+  sanity-check scripts. Only the leaderboard Space reads from it.
+
+## License
+
+Apache-2.0. See [`LICENSE`](LICENSE).

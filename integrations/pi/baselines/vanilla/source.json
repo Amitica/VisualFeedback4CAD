@@ -1,0 +1,11 @@
+{
+  "method": "vanilla-historical-direct-reflect",
+  "source_job": "results/pi/gpt56-four-arm-5case-20260821-v1/02-self-reflect/run/102/.cadgenbench-pi-job.json",
+  "prompt_function": "integrations/pi/src/main-self-reflect.ts:mainSelfReflectPrompt",
+  "fixture_102_prompt_sha256": "0d870377c71ea404eccb78887d3121a86e34d073e9f3932343d6c9d3b11923a7",
+  "prompt_characters": 1032,
+  "reuse_verbatim": true,
+  "view_search_enabled": false,
+  "dimension_annotation_enabled": false,
+  "historical_completion_rule": "Both source and STEP must change and remain valid/watertight; intentionally preserved for historical reproduction."
+}
