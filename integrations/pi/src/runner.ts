@@ -287,6 +287,16 @@ export function unchangedContinuationPrompt(job: AgentJob): string {
 	return "The formal CAD is valid, but the Reflection-guided continuation has not changed both solution.py and output.step from the preserved baseline. Implement the supplied Reflection findings in the live solution.py, call execute_build123d({}), and keep working until the revised source and STEP are both changed, valid, and watertight.";
 }
 
+/** Keep the immutable alignment origin separate from this round's formal CAD. */
+export function lockedViewOriginHashes(job: AgentJob): { baselineSourceSha256: string; baselineStepSha256: string } {
+	assertContinuation(job);
+	if (!job.continuation) throw new InfrastructureError("Locked view origin requires a continuation");
+	return {
+		baselineSourceSha256: job.continuation.view_origin_source_sha256 ?? job.continuation.baseline_source_sha256,
+		baselineStepSha256: job.continuation.view_origin_step_sha256 ?? job.continuation.baseline_step_sha256,
+	};
+}
+
 export function assertContinuation(job: AgentJob): void {
 	const continuation = job.continuation;
 	if (!continuation) return;
@@ -309,6 +319,16 @@ export function assertContinuation(job: AgentJob): void {
 	}
 	if (!/^[a-f0-9]{64}$/u.test(continuation.baseline_step_sha256)) {
 		throw new InfrastructureError("Continuation baseline STEP hash is invalid");
+	}
+	const hasViewOrigin = continuation.view_origin_source_sha256 !== undefined || continuation.view_origin_step_sha256 !== undefined;
+	if (continuation.reuse_fixed_view_from_source !== undefined && typeof continuation.reuse_fixed_view_from_source !== "boolean") throw new InfrastructureError("reuse_fixed_view_from_source must be boolean");
+	if (hasViewOrigin || continuation.reuse_fixed_view_from_source) {
+		if (!continuation.reuse_fixed_view_from_source || continuation.kind !== "main_self_reflect_inspect" || continuation.dimension_annotation_profile !== DIMENSION_ANNOTATION_PROFILE || !continuation.previous_continuation_id || !/^[A-Za-z0-9._-]{1,128}$/u.test(continuation.previous_continuation_id)) {
+			throw new InfrastructureError("View origin binding requires a chained fixed-view dimension continuation");
+		}
+		if (!/^[a-f0-9]{64}$/u.test(continuation.view_origin_source_sha256 ?? "") || !/^[a-f0-9]{64}$/u.test(continuation.view_origin_step_sha256 ?? "")) {
+			throw new InfrastructureError("View origin source and STEP hashes must be a valid pair");
+		}
 	}
 	for (const path of continuation.image_paths ?? []) {
 		if (isAbsolute(path) || path.split(/[\\/]/u).includes("..")) {
@@ -614,8 +634,7 @@ export async function runFixtureInContainer(options: {
 				workspace,
 				manifestPath: job.continuation!.locked_view_manifest_path!,
 				manifestSha256: job.continuation!.locked_view_manifest_sha256!,
-				baselineSourceSha256: job.continuation!.baseline_source_sha256,
-				baselineStepSha256: job.continuation!.baseline_step_sha256,
+				...lockedViewOriginHashes(job),
 			})
 		: undefined;
 	const mainViewReflectState = lockedViewManifest

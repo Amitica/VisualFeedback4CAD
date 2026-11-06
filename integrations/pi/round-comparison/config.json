@@ -1,0 +1,19 @@
+{
+  "experiment_id": "gpt56-sol-low-initial-vanilla-ours-rounds",
+  "provider": "ucloud",
+  "model": "gpt-5.6-sol",
+  "thinking_level": "low",
+  "cases": ["140"],
+  "methods": ["initial", "vanilla", "ours"],
+  "rounds": 3,
+  "image": "cadgenbench-pi-agent:round-comparison-20261106-v1",
+  "data_inputs_dir": "data/inputs",
+  "docker_network": "bridge",
+  "case_parallelism": 1,
+  "generation_timeout_minutes": 120,
+  "view_search_timeout_minutes": 180,
+  "repair_timeout_minutes": 120,
+  "search_cpus": 2,
+  "search_memory": "6g",
+  "subagent_timeout_multiplier": 1
+}

@@ -154,6 +154,9 @@ interface SelfReflectCaseResult {
 		view_search_tree_sha256_after?: string;
 		locked_view_manifest_path?: string;
 		locked_view_manifest_sha256?: string;
+		view_origin_source_sha256?: string;
+		view_origin_step_sha256?: string;
+		previous_continuation_id?: string;
 	};
 	after?: SelfReflectAfter;
 	agent_status?: RunStatus;
@@ -194,6 +197,7 @@ Usage:
     [--code-construction-profile optional-code-ablation-v1] \\
     [--no-new-images] \\
     [--allow-chained-self-reflect] \\
+    [--reuse-fixed-view-from-source] \\
     [--model-profile <gpt-5.6-sol|kimi> | --provider <provider> --model <model>]
 
 The output directory must not exist or must be empty. Each source workspace must
@@ -212,6 +216,13 @@ combined with --inspect-view-search-root.
 By default, sources must be original Main Agent sessions. Use
 --allow-chained-self-reflect only to continue a source whose currently applied
 continuation is a verified main_self_reflect turn.
+
+--reuse-fixed-view-from-source requires --allow-chained-self-reflect and the
+dimension annotation profile. It continues a completed matching dimension
+reflection round using that source's exact original fixed manifest, anchor,
+camera and transforms. No new alignment is run. The previous-round CAD is the
+new formal baseline; the original alignment origin remains separately bound.
+Each new round starts a fresh dimension cache even if its STEP is unchanged.
 
 When --inspect-view-search-root is provided, the Self Reflect prompt omits the
 obsolete no-additional-images/external-analysis sentence and adds
@@ -317,11 +328,11 @@ function parseArguments(args: string[]): ParsedArguments {
 			continue;
 		}
 		const name = token.slice(2);
-		if (!["output-dir", "image", "timeout-minutes", "thinking-level", "inspect-view-search-root", "inspect-region-id", "causal-repair-profile", "dual-roi-crop-profile", "target-annotation-profile", "visual-finding-profile", "visual-diff-profile", "visual-review-profile", "dimension-annotation-profile", "code-construction-profile", "model-profile", "provider", "model", "allow-chained-self-reflect", "no-new-images"].includes(name)) {
+		if (!["output-dir", "image", "timeout-minutes", "thinking-level", "inspect-view-search-root", "inspect-region-id", "causal-repair-profile", "dual-roi-crop-profile", "target-annotation-profile", "visual-finding-profile", "visual-diff-profile", "visual-review-profile", "dimension-annotation-profile", "code-construction-profile", "model-profile", "provider", "model", "allow-chained-self-reflect", "no-new-images", "reuse-fixed-view-from-source"].includes(name)) {
 			throw new UsageError(`Unknown option --${name}`);
 		}
 		if (flags.has(name)) throw new UsageError(`Option --${name} was provided more than once`);
-		if (name === "allow-chained-self-reflect" || name === "no-new-images") {
+		if (name === "allow-chained-self-reflect" || name === "no-new-images" || name === "reuse-fixed-view-from-source") {
 			flags.set(name, "true");
 			continue;
 		}
@@ -535,6 +546,11 @@ async function assertNoReflectionAgentState(result: AgentResult): Promise<void> 
 	assertSelfReflectAuxiliaryState(result);
 }
 
+/** Bind each round to its immediate predecessor, including unchanged CAD rounds. */
+export function chainedContinuationSuffix(previousId: string, sourceSha256: string, stepSha256: string): string {
+	return `chain-${createHash("sha256").update(JSON.stringify([previousId, sourceSha256, stepSha256])).digest("hex").slice(0, 20)}`;
+}
+
 async function copySourceWorkspace(source: string, destination: string): Promise<void> {
 	await cp(source, destination, {
 		recursive: true,
@@ -580,6 +596,7 @@ async function prepareCase(options: {
 	thinkingLevel: ThinkingLevel;
 	allowChainedSelfReflect: boolean;
 	noNewImages: boolean;
+	reuseFixedViewFromSource: boolean;
 	inspectRegionId?: string;
 	causalRepairProfile?: CausalRepairProfile;
 	dualRoiCropProfile?: DualRoiCropProfile;
@@ -631,7 +648,14 @@ async function prepareCase(options: {
 			`Case ${fixtureId} is already a self-reflection continuation; pass --allow-chained-self-reflect to continue it`,
 		);
 	}
-	await assertNoAuxiliaryArtifacts(sourceWorkspace, sourceResult);
+	if (options.reuseFixedViewFromSource) {
+		const prior = sourceJob.continuation;
+		if (sourceContinuationKind !== "main_self_reflect" || prior?.kind !== MAIN_SELF_REFLECT_INSPECT_KIND || prior.dimension_annotation_profile !== DIMENSION_ANNOTATION_PROFILE || prior.dimension_annotation_profile !== options.dimensionAnnotationProfile || prior.visual_review_profile !== options.visualReviewProfile) {
+			throw new InfrastructureError(`Case ${fixtureId} fixed-view reuse requires a prior matching completed dimension reflection profile`);
+		}
+		if (prior.no_new_images || [prior.causal_repair_profile, prior.dual_roi_crop_profile, prior.target_annotation_profile, prior.visual_finding_profile, prior.visual_diff_profile, prior.code_construction_profile].some(profile => profile !== undefined)) throw new InfrastructureError("Fixed-view dimension chaining cannot import other reflection profiles");
+		assertSelfReflectAuxiliaryState(sourceResult, options.visualReviewProfile, options.dimensionAnnotationProfile);
+	} else await assertNoAuxiliaryArtifacts(sourceWorkspace, sourceResult);
 	if (!sourceResult.session_file) throw new InfrastructureError(`Case ${fixtureId} has no resumable Pi session`);
 	await requireFile(join(sourceWorkspace, sourceResult.session_file), `Case ${fixtureId} Pi session`);
 
@@ -643,6 +667,13 @@ async function prepareCase(options: {
 	) {
 		throw new InfrastructureError(`Case ${fixtureId} source/STEP no longer match its recorded formal result`);
 	}
+	if (sourceContinuationKind === "main_self_reflect" && !selfReflectCompletionAccepted(sourceJob, sourceResult, {
+		source_sha256: baselineSourceSha256,
+		step_sha256: baselineStepSha256,
+		formal_executions_added: sourceResult.last_turn,
+		is_valid: sourceResult.artifact?.validation?.is_valid === true,
+		is_watertight: sourceResult.artifact?.validation?.is_watertight === true,
+	})) throw new InfrastructureError(`Case ${fixtureId} prior self-reflection round is incomplete or has stale final evidence`);
 
 	let viewWorkspace: string | undefined;
 	let viewTreeSha256: string | undefined;
@@ -650,34 +681,48 @@ async function prepareCase(options: {
 	let manifestSha256: string | undefined;
 	let viewResultPath: string | undefined;
 	let lockedManifest: DrawingViewManifest | undefined;
-	if (options.viewSearchRoot) {
-		viewWorkspace = resolve(options.viewSearchRoot, fixtureId);
-		viewResultPath = join(viewWorkspace, "view_search_only_result.json");
-		await requireFile(viewResultPath, `Case ${fixtureId} View Search result`);
-		const viewResult = await readJson<ViewSearchOnlyResult>(viewResultPath);
-		if (
-			viewResult.status !== "completed" ||
-			viewResult.fixture_id !== fixtureId ||
-			viewResult.reflection_agent_started !== false ||
-			viewResult.agent_roles?.includes("reflection") ||
-			!viewResult.manifest_path ||
-			viewResult.source_sha256 !== baselineSourceSha256 ||
-			viewResult.step_sha256 !== baselineStepSha256 ||
-			resolve(viewResult.source_workspace ?? "") !== sourceWorkspace
-		) throw new InfrastructureError(`Case ${fixtureId} View Search result does not exactly match the Self Reflect baseline`);
-		if (
-			await sha256(join(viewWorkspace, "solution.py")) !== baselineSourceSha256 ||
-			await sha256(join(viewWorkspace, "output.step")) !== baselineStepSha256
-		) throw new InfrastructureError(`Case ${fixtureId} View Search workspace source/STEP mismatch`);
-		const sourceManifestPath = viewResult.manifest_path;
+	let viewOriginSourceSha256: string | undefined;
+	let viewOriginStepSha256: string | undefined;
+	if (options.viewSearchRoot || options.reuseFixedViewFromSource) {
+		let sourceManifestPath: string;
+		if (options.reuseFixedViewFromSource) {
+			viewWorkspace = sourceWorkspace;
+			const prior = sourceJob.continuation!;
+			if (!prior.locked_view_manifest_path || !prior.locked_view_manifest_sha256) throw new InfrastructureError("Prior dimension round lacks a locked view manifest binding");
+			sourceManifestPath = prior.locked_view_manifest_path;
+			manifestSha256 = prior.locked_view_manifest_sha256;
+			viewOriginSourceSha256 = prior.view_origin_source_sha256 ?? prior.baseline_source_sha256;
+			viewOriginStepSha256 = prior.view_origin_step_sha256 ?? prior.baseline_step_sha256;
+			if (Boolean(prior.view_origin_source_sha256) !== Boolean(prior.view_origin_step_sha256)) throw new InfrastructureError("Prior alignment origin hash pair is incomplete");
+		} else {
+			viewWorkspace = resolve(options.viewSearchRoot!, fixtureId);
+			viewResultPath = join(viewWorkspace, "view_search_only_result.json");
+			await requireFile(viewResultPath, `Case ${fixtureId} View Search result`);
+			const viewResult = await readJson<ViewSearchOnlyResult>(viewResultPath);
+			if (
+				viewResult.status !== "completed" ||
+				viewResult.fixture_id !== fixtureId ||
+				viewResult.reflection_agent_started !== false ||
+				viewResult.agent_roles?.includes("reflection") ||
+				!viewResult.manifest_path ||
+				viewResult.source_sha256 !== baselineSourceSha256 ||
+				viewResult.step_sha256 !== baselineStepSha256 ||
+				resolve(viewResult.source_workspace ?? "") !== sourceWorkspace
+			) throw new InfrastructureError(`Case ${fixtureId} View Search result does not exactly match the Self Reflect baseline`);
+			if (
+				await sha256(join(viewWorkspace, "solution.py")) !== baselineSourceSha256 ||
+				await sha256(join(viewWorkspace, "output.step")) !== baselineStepSha256
+			) throw new InfrastructureError(`Case ${fixtureId} View Search workspace source/STEP mismatch`);
+			sourceManifestPath = viewResult.manifest_path;
+		}
 		const manifestFile = await safeSourceFile(viewWorkspace, sourceManifestPath, `Case ${fixtureId} View Search manifest`);
-		manifestSha256 = await sha256(manifestFile);
+		manifestSha256 ??= await sha256(manifestFile);
 		lockedManifest = await loadLockedMainViewManifest({
 			workspace: viewWorkspace,
 			manifestPath: sourceManifestPath,
 			manifestSha256,
-			baselineSourceSha256,
-			baselineStepSha256,
+			baselineSourceSha256: viewOriginSourceSha256 ?? baselineSourceSha256,
+			baselineStepSha256: viewOriginStepSha256 ?? baselineStepSha256,
 		});
 		if (options.visualReviewProfile === GEOMETRY_REPAIR_PROFILE && lockedManifest.projection_frame?.policy !== "fixed") {
 			throw new InfrastructureError("Atomic geometry repair requires a calibrated fixed View Search manifest (projection_frame.policy=fixed)");
@@ -724,8 +769,8 @@ async function prepareCase(options: {
 			workspace,
 			manifestPath,
 			manifestSha256,
-			baselineSourceSha256,
-			baselineStepSha256,
+			baselineSourceSha256: viewOriginSourceSha256 ?? baselineSourceSha256,
+			baselineStepSha256: viewOriginStepSha256 ?? baselineStepSha256,
 		});
 	}
 	const baselineDir = join(workspace, "baseline");
@@ -750,7 +795,7 @@ async function prepareCase(options: {
 				options.targetAnnotationProfile,
 				options.dimensionAnnotationProfile,
 			)
-		: options.noNewImages ? mainSelfReflectNoNewImagesPrompt(fixtureId) : mainSelfReflectPrompt(fixtureId);
+		: options.noNewImages ? mainSelfReflectNoNewImagesPrompt(fixtureId, sourceContinuationKind === "main_self_reflect") : mainSelfReflectPrompt(fixtureId);
 	const promptSha256 = createHash("sha256").update(prompt).digest("hex");
 	const continuationKind = viewWorkspace ? MAIN_SELF_REFLECT_INSPECT_KIND : MAIN_SELF_REFLECT_KIND;
 	const continuationId = [
@@ -758,7 +803,7 @@ async function prepareCase(options: {
 		...(options.inspectRegionId && manifestSha256
 			? [`region-${options.inspectRegionId}-${manifestSha256.slice(0, 12)}`]
 			: []),
-		...(sourceContinuationKind === "main_self_reflect" ? [baselineSourceSha256.slice(0, 12)] : []),
+		...(sourceContinuationKind === "main_self_reflect" ? [chainedContinuationSuffix(sourceJob.continuation!.id, baselineSourceSha256, baselineStepSha256)] : []),
 	].join("-");
 	await writeJsonAtomic(join(baselineDir, "manifest.json"), {
 		fixture_id: fixtureId,
@@ -783,6 +828,8 @@ async function prepareCase(options: {
 		continuation_thinking_level: options.thinkingLevel,
 		attached_continuation_images: [],
 		no_new_images: options.noNewImages,
+		reuse_fixed_view_from_source: options.reuseFixedViewFromSource,
+		...(viewOriginSourceSha256 && viewOriginStepSha256 ? { view_origin_source_sha256: viewOriginSourceSha256, view_origin_step_sha256: viewOriginStepSha256 } : {}),
 		causal_repair_profile: options.causalRepairProfile ?? null,
 		dual_roi_crop_profile: options.dualRoiCropProfile ?? null,
 		target_annotation_profile: options.targetAnnotationProfile ?? null,
@@ -844,6 +891,8 @@ async function prepareCase(options: {
 			...(options.noNewImages ? { no_new_images: true } : {}),
 			baseline_source_sha256: baselineSourceSha256,
 			baseline_step_sha256: baselineStepSha256,
+			...(sourceContinuationKind === "main_self_reflect" ? { previous_continuation_id: sourceJob.continuation!.id } : {}),
+			...(options.reuseFixedViewFromSource ? { reuse_fixed_view_from_source: true, view_origin_source_sha256: viewOriginSourceSha256!, view_origin_step_sha256: viewOriginStepSha256! } : {}),
 			...(manifestPath && manifestSha256 ? {
 				locked_view_manifest_path: manifestPath,
 				locked_view_manifest_sha256: manifestSha256,
@@ -1140,6 +1189,11 @@ async function runCase(
 			render_path: "baseline/iso.png",
 			session_file: "baseline/session.jsonl",
 			last_turn: prepared.baselineLastTurn,
+			...(prepared.job.continuation?.reuse_fixed_view_from_source ? {
+				view_origin_source_sha256: prepared.job.continuation.view_origin_source_sha256,
+				view_origin_step_sha256: prepared.job.continuation.view_origin_step_sha256,
+				previous_continuation_id: prepared.job.continuation.previous_continuation_id,
+			} : {}),
 			...(prepared.viewWorkspace && prepared.viewTreeSha256 && viewTreeAfter && prepared.manifestPath && prepared.manifestSha256 ? {
 				view_search_workspace: prepared.viewWorkspace,
 				view_search_tree_sha256_before: prepared.viewTreeSha256,
@@ -1179,8 +1233,13 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 	const timeoutMinutesValue = timeoutMinutes(parsed);
 	const selectedThinkingLevel = thinkingLevel(parsed);
 	const allowChainedSelfReflect = parsed.flags.get("allow-chained-self-reflect") === "true";
+	const reuseFixedViewFromSource = parsed.flags.get("reuse-fixed-view-from-source") === "true";
+	const usesLockedViews = resolvedViewSearchRoot !== undefined || reuseFixedViewFromSource;
+	if (reuseFixedViewFromSource && !allowChainedSelfReflect) throw new UsageError("--reuse-fixed-view-from-source requires --allow-chained-self-reflect");
+	if (reuseFixedViewFromSource && resolvedViewSearchRoot) throw new UsageError("--reuse-fixed-view-from-source cannot be combined with --inspect-view-search-root");
+	if (reuseFixedViewFromSource && selectedInspectRegionId) throw new UsageError("--reuse-fixed-view-from-source preserves all original views and cannot be combined with --inspect-region-id");
 	const noNewImages = parsed.flags.get("no-new-images") === "true";
-	if (noNewImages && resolvedViewSearchRoot) throw new UsageError("--no-new-images cannot be combined with --inspect-view-search-root");
+	if (noNewImages && usesLockedViews) throw new UsageError("--no-new-images cannot be combined with --inspect-view-search-root");
 	const selectedCausalRepairProfile = causalRepairProfile(parsed);
 	const selectedDualRoiCropProfile = dualRoiCropProfile(parsed);
 	const selectedTargetAnnotationProfile = targetAnnotationProfile(parsed);
@@ -1189,7 +1248,8 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 	const selectedVisualDiffProfile = visualDiffProfile(parsed);
 	const selectedVisualReviewProfile = visualReviewProfile(parsed);
 	const selectedDimensionAnnotationProfile = dimensionAnnotationProfile(parsed);
-	if (selectedDimensionAnnotationProfile && !resolvedViewSearchRoot) {
+	if (reuseFixedViewFromSource && selectedDimensionAnnotationProfile !== DIMENSION_ANNOTATION_PROFILE) throw new UsageError("--reuse-fixed-view-from-source requires --dimension-annotation-profile aligned-dimension-subagent-v1");
+	if (selectedDimensionAnnotationProfile && !usesLockedViews) {
 		throw new UsageError("--dimension-annotation-profile requires --inspect-view-search-root");
 	}
 	if (selectedDimensionAnnotationProfile && (
@@ -1226,7 +1286,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 	if (selectedVisualDiffProfile && selectedVisualFindingProfile) {
 		throw new UsageError("--visual-diff-profile cannot be combined with --visual-finding-profile");
 	}
-	if (selectedVisualReviewProfile && !resolvedViewSearchRoot) {
+	if (selectedVisualReviewProfile && !usesLockedViews) {
 		throw new UsageError("--visual-review-profile requires --inspect-view-search-root");
 	}
 	if (selectedVisualReviewProfile && (selectedVisualFindingProfile || selectedVisualDiffProfile)) {
@@ -1257,7 +1317,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 	await requireEmptyOutput(outputDir);
 	const runDir = join(outputDir, "run");
 	await mkdir(runDir, { recursive: true });
-	const runId = `${selectedDimensionAnnotationProfile ? (selectedVisualReviewProfile === SHAPE_FEEDBACK_PROFILE ? "main-self-reflect-inspect-shape-feedback-dimensions" : "main-self-reflect-inspect-dimensions") : selectedVisualReviewProfile === GEOMETRY_REPAIR_PROFILE ? "main-self-reflect-inspect-geometry-repair" : selectedVisualReviewProfile === SHAPE_FEEDBACK_PROFILE ? "main-self-reflect-inspect-shape-feedback" : selectedVisualReviewProfile ? "main-self-reflect-inspect-geometry-hypothesis" : selectedVisualDiffProfile ? "main-self-reflect-inspect-visual-diffs" : selectedCodeConstructionProfile ? "main-self-reflect-inspect-code-ablation" : selectedVisualFindingProfile ? "main-self-reflect-inspect-visual-findings" : selectedTargetAnnotationProfile ? "main-self-reflect-inspect-target-annotations" : selectedCausalRepairProfile ? "main-self-reflect-inspect-causal" : selectedDualRoiCropProfile ? "main-self-reflect-inspect-dual-roi" : resolvedViewSearchRoot ? "main-self-reflect-inspect" : "main-self-reflect"}-${new Date().toISOString().replaceAll(/[-:.]/gu, "")}-${process.pid}`;
+	const runId = `${selectedDimensionAnnotationProfile ? (selectedVisualReviewProfile === SHAPE_FEEDBACK_PROFILE ? "main-self-reflect-inspect-shape-feedback-dimensions" : "main-self-reflect-inspect-dimensions") : selectedVisualReviewProfile === GEOMETRY_REPAIR_PROFILE ? "main-self-reflect-inspect-geometry-repair" : selectedVisualReviewProfile === SHAPE_FEEDBACK_PROFILE ? "main-self-reflect-inspect-shape-feedback" : selectedVisualReviewProfile ? "main-self-reflect-inspect-geometry-hypothesis" : selectedVisualDiffProfile ? "main-self-reflect-inspect-visual-diffs" : selectedCodeConstructionProfile ? "main-self-reflect-inspect-code-ablation" : selectedVisualFindingProfile ? "main-self-reflect-inspect-visual-findings" : selectedTargetAnnotationProfile ? "main-self-reflect-inspect-target-annotations" : selectedCausalRepairProfile ? "main-self-reflect-inspect-causal" : selectedDualRoiCropProfile ? "main-self-reflect-inspect-dual-roi" : usesLockedViews ? "main-self-reflect-inspect" : "main-self-reflect"}-${new Date().toISOString().replaceAll(/[-:.]/gu, "")}-${process.pid}`;
 	const probeRuntime = new DockerAgentRuntime({ image, provider: modelSelection.provider });
 	await probeRuntime.daemonVersion();
 	const imageId = await probeRuntime.imageDigest();
@@ -1286,6 +1346,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 				thinkingLevel: selectedThinkingLevel,
 				allowChainedSelfReflect,
 				noNewImages,
+				reuseFixedViewFromSource,
 				...(selectedInspectRegionId ? { inspectRegionId: selectedInspectRegionId } : {}),
 				...(selectedCausalRepairProfile ? { causalRepairProfile: selectedCausalRepairProfile } : {}),
 				...(selectedDualRoiCropProfile ? { dualRoiCropProfile: selectedDualRoiCropProfile } : {}),
@@ -1301,7 +1362,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 			throw new UsageError("Source fixture IDs must be unique");
 		}
 		await writeJsonAtomic(join(outputDir, "experiment_contract.json"), {
-			experiment: resolvedViewSearchRoot
+			experiment: usesLockedViews
 				? selectedVisualReviewProfile === GEOMETRY_REPAIR_PROFILE
 					? "Main Self Reflect with atomic geometry repair delegation, SubAgent-only Preview, and Main-reviewed candidate adoption"
 					: selectedVisualReviewProfile === SHAPE_FEEDBACK_PROFILE
@@ -1324,7 +1385,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 						? "Main Self Reflect with final aligned 2D review and optional Dual ROI Crop"
 						: "Main Self Reflect with final aligned 2D review"
 				: "Main-Agent-only Self Reflect",
-			continuation_kind: resolvedViewSearchRoot ? MAIN_SELF_REFLECT_INSPECT_KIND : MAIN_SELF_REFLECT_KIND,
+			continuation_kind: usesLockedViews ? MAIN_SELF_REFLECT_INSPECT_KIND : MAIN_SELF_REFLECT_KIND,
 			protocol_version: PROTOCOL_VERSION,
 			run_id: runId,
 			created_at: startedAt,
@@ -1343,7 +1404,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 			turn_limit: null,
 			agent_mode: "base-only",
 			continuation_image_paths: [],
-			historical_self_reflect_prompt_delta: resolvedViewSearchRoot
+			historical_self_reflect_prompt_delta: usesLockedViews
 				? selectedVisualReviewProfile === GEOMETRY_REPAIR_PROFILE
 					? "required final aligned 2D review, formal execute_build123d validity/watertightness checks, and continued repair until clear comparison discrepancies are eliminated; the formal tool's 3D render may also be inspected; delegate one part and one suspected difference through repair_geometry; SubAgent verifies the premise before isolated previews; Main reviews only the selected candidate's final images and adopts using evaluation_id and candidate_id; no Main Preview tool"
 					: selectedVisualReviewProfile === SHAPE_FEEDBACK_PROFILE
@@ -1398,16 +1459,24 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 			code_construction_profile: selectedCodeConstructionProfile ?? null,
 			inspect_code_ablation_optional: selectedCodeConstructionProfile !== undefined,
 			same_region_before_after_prompt_required: false,
-			final_key_view_reinspection_prompt_required: resolvedViewSearchRoot !== undefined,
+			final_key_view_reinspection_prompt_required: usesLockedViews,
 			view_search_root: resolvedViewSearchRoot ?? null,
+			...(reuseFixedViewFromSource ? { fixed_view_origins: Object.fromEntries(prepared.map(item => [item.fixtureId, {
+				source_workspace: item.sourceWorkspace,
+				manifest_sha256: item.job.continuation!.locked_view_manifest_sha256,
+				source_sha256: item.job.continuation!.view_origin_source_sha256,
+				step_sha256: item.job.continuation!.view_origin_step_sha256,
+				previous_continuation_id: item.job.continuation!.previous_continuation_id,
+			}])) } : {}),
 			inspect_region_id: selectedInspectRegionId ?? null,
 			allow_chained_self_reflect: allowChainedSelfReflect,
+			reuse_fixed_view_from_source: reuseFixedViewFromSource,
 			source_continuation_kinds: Object.fromEntries(
 				prepared.map(({ fixtureId, sourceContinuationKind }) => [fixtureId, sourceContinuationKind]),
 			),
 			allowed_tools: [
 				"read", "write", "edit", "bash", "grep", "find", "ls", "execute_build123d",
-				...(resolvedViewSearchRoot ? ["inspect_comparison"] : []),
+				...(usesLockedViews ? ["inspect_comparison"] : []),
 				...(selectedDualRoiCropProfile ? ["dual_roi_crop"] : []),
 				...(selectedTargetAnnotationProfile ? ["annotate_target"] : []),
 				...(selectedCausalRepairProfile ? ["compare_repair_hypotheses"] : []),
@@ -1416,7 +1485,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 				...(selectedVisualDiffProfile ? ["visual_diff"] : []),
 				...visualReviewAgentTools(selectedVisualReviewProfile),
 			],
-			forbidden_tools: resolvedViewSearchRoot
+			forbidden_tools: usesLockedViews
 				? [
 						...(selectedDualRoiCropProfile ? [] : ["dual_roi_crop"]),
 						...(selectedTargetAnnotationProfile ? [] : ["annotate_target"]),
@@ -1433,10 +1502,10 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 					]
 				: ["inspect_comparison", "dual_roi_crop", "annotate_target", "inspect_code_ablation", "visual_diff", "visualize_code_hypothesis", "preview_repair_candidates", ...SHAPE_FEEDBACK_TOOLS, "repair_geometry", "self_reflect_2d_drawing", "view_search", "submit_reflection"],
 			acceptance: {
-				fresh_formal_execution: resolvedViewSearchRoot === undefined && !noNewImages,
+				fresh_formal_execution: !usesLockedViews && !noNewImages,
 				current_formal_execution: true,
-				source_changed: resolvedViewSearchRoot === undefined && !noNewImages,
-				step_changed: resolvedViewSearchRoot === undefined && !noNewImages,
+				source_changed: !usesLockedViews && !noNewImages,
+				step_changed: !usesLockedViews && !noNewImages,
 				is_valid: true,
 				is_watertight: true,
 				no_auxiliary_agents: selectedVisualReviewProfile !== GEOMETRY_REPAIR_PROFILE && !selectedDimensionAnnotationProfile,
@@ -1445,8 +1514,8 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 					...(selectedDimensionAnnotationProfile ? ["dimension_annotation"] : []),
 				],
 				final_dimension_annotation_required: selectedDimensionAnnotationProfile !== undefined,
-				inspect_comparison_required: resolvedViewSearchRoot !== undefined,
-				final_step_inspection_required: resolvedViewSearchRoot !== undefined,
+				inspect_comparison_required: usesLockedViews,
+				final_step_inspection_required: usesLockedViews,
 			},
 		});
 		await Promise.all(prepared.map(async (item) => {

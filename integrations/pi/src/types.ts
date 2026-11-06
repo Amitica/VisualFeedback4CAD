@@ -1007,6 +1007,12 @@ export interface AgentJob {
 		no_new_images?: boolean;
 		baseline_source_sha256: string;
 		baseline_step_sha256: string;
+		/** Reuse the previous completed round's original fixed view frame unchanged. */
+		reuse_fixed_view_from_source?: boolean;
+		/** Alignment origin is distinct from the current previous-round CAD baseline. */
+		view_origin_source_sha256?: string;
+		view_origin_step_sha256?: string;
+		previous_continuation_id?: string;
 		locked_view_manifest_path?: string;
 		locked_view_manifest_sha256?: string;
 		causal_repair_profile?: CausalRepairProfile;

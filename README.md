@@ -1,12 +1,18 @@
-# CADGenBench
+# VisualFeedback4CAD
 
-## VisualFeedback4CAD：方法与基线复现
+基于工程图的 CAD 生成与视觉反馈实验。主要比较 **同一份 Initial、单轮 Vanilla，以及我们方法的多轮结果**。
 
-本仓库在 CADGenBench 基础上提供完整视觉反馈方法，以及 **Initial、Vanilla、CADCodeVerify、Seek-CAD SVF、IterCAD** 五种基线入口。2026-11-05 已使用 `gpt-5.6-sol / low` 在 case 140 上实际跑通全部入口；命令退出码 0，五份 STEP 均通过独立有效性与水密检查。详见[运行说明](integrations/pi/baselines/README.md)和[核验摘要](integrations/pi/baselines/verification/case140-20261105.json)。
+| 结果 | 运行方式 |
+| --- | --- |
+| Initial | Main 根据工程图生成初始 CAD，每个案例只生成一次 |
+| Vanilla | 从同一 Initial 继续 Main 会话，按历史 Direct Reflect 提示词反思一轮 |
+| Ours 第 1–N 轮 | 从同一 Initial 搜索并锁定视图；每轮更新当前 CAD 的尺寸标注，再继续 Main 反思；后续轮次继承上一轮 CAD 和会话 |
 
-目标服务器需要 Linux、Git、Python 3、Node ≥22.19、npm 和可用的 Docker daemon；不要求宿主机安装 CAD 内核或 GPU。仓库包含 49 个公开生成输入；API 密钥、三维 GT 和原始运行结果不包含在源码中。
+默认 **`ucloud / gpt-5.6-sol / low`**，Ours 默认 **3 轮**。`--rounds` 只控制 Ours；Vanilla 固定一轮。视图搜索只做一次，不计为反思轮次。完整定义、逐轮结果和失败处理见[多轮实验说明](integrations/pi/round-comparison/README.md)。
 
-先克隆，并创建目标机器自己的模型配置：
+## 安装与配置
+
+目标服务器需要 Linux、Node ≥22.19、npm、Git、Python 3 和可用的 Docker daemon。仓库包含 49 个公开生成输入；API 密钥、三维 GT 和原始运行结果不包含在源码中。
 
 ```bash
 git clone https://github.com/Amitica/VisualFeedback4CAD.git
@@ -16,7 +22,7 @@ mkdir -p "$PI_CODING_AGENT_DIR"
 cp -n integrations/pi/baselines/models.example.json "$PI_CODING_AGENT_DIR/models.json"
 ```
 
-将该 `models.json` 中的 `baseUrl` 占位地址改为自己的、支持图像输入和 Responses 的 API 根地址，确认支持 `gpt-5.6-sol`；然后在同一终端设置密钥：
+将该 `models.json` 中的占位 `baseUrl` 改为自己的 API 根地址，确认支持图像输入、Responses 和 `gpt-5.6-sol`；然后在同一终端设置密钥：
 
 ```bash
 read -rsp 'UCLOUD_API_KEY: ' UCLOUD_API_KEY
@@ -24,22 +30,29 @@ echo
 export UCLOUD_API_KEY
 ```
 
-首次运行加 `--setup`，自动安装 Node 依赖、构建镜像并获取固定版本的 IterCAD 官方源码：
+## 运行 Initial + Vanilla + Ours 多轮
+
+首次运行单个案例，`--setup` 会安装依赖、编译入口并构建新运行镜像：
 
 ```bash
-bash integrations/pi/baselines/run-all.sh --setup \
-  --cases 140 --parallel 1 \
-  --output-dir results/baselines/case140-v1
+bash integrations/pi/round-comparison/run.sh --setup \
+  --cases 140 --rounds 3 --parallel 1 \
+  --output-dir results/comparison/case140-v1
 ```
 
-单例完成后，运行全部 49 个生成案例：
+运行全部 49 个生成案例：
 
 ```bash
-bash integrations/pi/baselines/run-all.sh --all-generation --parallel 4 \
-  --output-dir results/baselines/all49-v1
+bash integrations/pi/round-comparison/run.sh --all-generation \
+  --rounds 3 --parallel 4 \
+  --output-dir results/comparison/all49-v1
 ```
 
-输出目录须使用新名称。模型配置、单独运行、评测与适配差异见[基线说明](integrations/pi/baselines/README.md)；完整的 Main → View Search → 尺寸标注 → Main 修复流程见[完整方法说明](integrations/pi/portable-full-method/README.md)。Seek-CAD 在此为 SVF 适配版；IterCAD 使用官方推理流程搭配共同 GPT 模型，未复现其训练权重。本次核验不代表 GT 几何精度。
+每次使用新输出目录。逐轮评测目录为 `evaluation/initial/`、`evaluation/vanilla/round-01/` 和 `evaluation/ours/round-01/` 至 `round-03/`。若某轮失败，其后依赖轮次标记为 blocked，保留 missing 案例，不用旧模型替代。运行状态见 `summary.json`，逐轮索引见 `rounds.csv`。生成和反思不使用三维 GT；几何精度需另行评测。
+
+## 其它方法与历史入口
+
+[五种基线入口](integrations/pi/baselines/README.md)保留 Initial、Vanilla、CADCodeVerify、Seek-CAD SVF、IterCAD 的一键运行；[原完整方法入口](integrations/pi/portable-full-method/README.md)也保持兼容。2026-11-05 的五方法 case 140 单例实跑记录见[核验摘要](integrations/pi/baselines/verification/case140-20261105.json)，该记录不等同于新多轮全集已运行。Seek-CAD 为 SVF 适配版；IterCAD 使用官方推理流程搭配共同 GPT 模型，未复现其训练权重。
 
 ## CADGenBench 基础项目
 

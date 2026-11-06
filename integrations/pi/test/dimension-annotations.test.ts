@@ -154,7 +154,7 @@ async function fixture(options: { section?: boolean } = {}) {
     onUpdate: async state => { updates.push(structuredClone(state)); },
     onUsage: async usage => { usages.push(usage); },
   };
-  const service = (script: (session: SessionOptions) => Promise<void>) => {
+  const service = (script: (session: SessionOptions) => Promise<void>, continuationId?: string) => {
     const runSession = async (session: SessionOptions) => {
       sessions.push(session);
       await script(session);
@@ -166,7 +166,11 @@ async function fixture(options: { section?: boolean } = {}) {
       await session.onUsage(usage);
       return { value: session.getSubmitted(), usage };
     };
-    return createDimensionAnnotationService({ ...optionsBase, runSession: runSession as NonNullable<ServiceOptions["runSession"]> });
+    return createDimensionAnnotationService({
+      ...optionsBase,
+      ...(continuationId ? { job: { ...job, continuation: { ...job.continuation!, id: continuationId } } } : {}),
+      runSession: runSession as NonNullable<ServiceOptions["runSession"]>,
+    });
   };
   const revise = async () => {
     await save("solution.py", "radius = 3\n");
@@ -244,6 +248,47 @@ describe("dimension annotation SubAgent lifecycle", () => {
     expect(reused.regions[0]!.comparison_path).toBe(initial.regions[0]!.comparison_path);
     expect(f.sessions).toHaveLength(1);
     expect(f.requests).toHaveLength(2);
+  });
+
+  it("remeasures unchanged CAD for each new reflection round while reusing evidence within that round", async () => {
+    const f = await fixture();
+    const sourceHash = await f.hashFile("solution.py");
+    const stepHash = await f.hashFile("output.step");
+    const rounds = ["reflect-round-1", "reflect-round-2", "reflect-round-3"];
+    const revisions = new Set<string>();
+    const statePaths = new Set<string>();
+    const comparisonPaths = new Set<string>();
+    const priorRoundStates = new Map<string, string>();
+
+    for (const [index, continuationId] of rounds.entries()) {
+      const service = f.service(async session => { await measure(session); await submit(session); }, continuationId);
+      const measured = await service.ensureCurrent(`before ${continuationId}`);
+      expect(measured).toMatchObject({ status: "completed", source_sha256: sourceHash, step_sha256: stepHash });
+      expect(measured.regions[0]).toMatchObject({ dimensions: [choice()], values: [{ value: 4, unit: "mm" }] });
+      revisions.add(measured.revision_id);
+      statePaths.add(measured.state_path);
+      comparisonPaths.add(measured.regions[0]!.comparison_path!);
+      expect(f.sessions).toHaveLength(index + 1);
+      expect(f.requests.filter(request => request.operation === "measure_dimension_view")).toHaveLength(index + 1);
+
+      const cached = await service.ensureCurrent(`repeat inspect within ${continuationId}`);
+      expect(cached.revision_id).toBe(measured.revision_id);
+      expect(cached.state_path).toBe(measured.state_path);
+      expect(cached.regions[0]!.comparison_path).toBe(measured.regions[0]!.comparison_path);
+      expect(f.sessions).toHaveLength(index + 1);
+      expect(f.requests.filter(request => request.operation === "measure_dimension_view")).toHaveLength(index + 1);
+      for (const [path, saved] of priorRoundStates) {
+        expect(await readFile(join(f.workspace, path), "utf8")).toBe(saved);
+      }
+      priorRoundStates.set(cached.state_path, await readFile(join(f.workspace, cached.state_path), "utf8"));
+    }
+
+    expect(revisions.size).toBe(3);
+    expect(statePaths.size).toBe(3);
+    expect(comparisonPaths.size).toBe(3);
+    expect(f.requests.map(request => request.operation)).toEqual(rounds.flatMap(() => ["prepare_dimension_view", "measure_dimension_view"]));
+    expect(await f.hashFile("solution.py")).toBe(sourceHash);
+    expect(await f.hashFile("output.step")).toBe(stepHash);
   });
 
   it("remeasures new STEP IDs and retains the intended dimension after an edit", async () => {

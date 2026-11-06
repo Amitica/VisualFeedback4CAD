@@ -55,12 +55,18 @@ export function mainSelfReflectPrompt(fixtureId: string): string {
 	].join("\n\n");
 }
 
-export function mainSelfReflectNoNewImagesPrompt(fixtureId: string): string {
+export function mainSelfReflectNoNewImagesPrompt(fixtureId: string, isChained = false): string {
 	return [
-		`Continue CADGenBench fixture ${fixtureId} in this exact existing Initial Pi session.`,
+		isChained
+			? `Continue CADGenBench fixture ${fixtureId} in this exact existing Pi session, retaining the full history of the previous completed reflection round.`
+			: `Continue CADGenBench fixture ${fixtureId} in this exact existing Initial Pi session.`,
 		"Use only the original task, drawing and CAD evidence already present in this session, together with the live solution.py. No new images are attached or provided by tools. Do not request, open or generate additional CAD images, aligned views, dimension annotations or external analysis.",
-		"The controller preserved the Initial source, STEP, render and session under /workspace/baseline/. Never edit baseline/.",
-		"Reflect on missing, extra, incorrectly shaped, incorrectly dimensioned or misaligned geometry using the existing evidence. Make focused edits to the live solution.py only when they address a supported discrepancy. Preserve correct geometry; keeping Initial unchanged is allowed when no justified improvement remains.",
+		isChained
+			? "The controller preserved the source, STEP, render and full session from the previous completed reflection round under /workspace/baseline/. Never edit baseline/."
+			: "The controller preserved the Initial source, STEP, render and session under /workspace/baseline/. Never edit baseline/.",
+		isChained
+			? "Reflect on missing, extra, incorrectly shaped, incorrectly dimensioned or misaligned geometry using the existing evidence. Make focused edits to the live solution.py only when they address a supported discrepancy. Preserve correct geometry; keeping the previous round's output unchanged is allowed when no justified improvement remains."
+			: "Reflect on missing, extra, incorrectly shaped, incorrectly dimensioned or misaligned geometry using the existing evidence. Make focused edits to the live solution.py only when they address a supported discrepancy. Preserve correct geometry; keeping Initial unchanged is allowed when no justified improvement remains.",
 		"After any source edit call execute_build123d({}) to produce and validate a fresh output.step. The tool returns execution and validity diagnostics without render images. Continue until the current source and STEP are formally bound, valid and watertight, then finish your reflection.",
 	].join("\n\n");
 }

@@ -1,0 +1,74 @@
+{
+  "verified_at": "2026-11-06T01:57:17.378025+00:00",
+  "status": "offline_and_existing_artifact_checks_passed",
+  "configuration": {
+    "initial_generations_per_case": 1,
+    "vanilla_reflection_rounds": 1,
+    "ours_default_reflection_rounds": 3,
+    "rounds_flag_affects": "ours only",
+    "model": "ucloud/gpt-5.6-sol",
+    "thinking_level": "low",
+    "view_search_runs_per_case": 1
+  },
+  "new_paid_model_calls": 0,
+  "new_full_multi_round_batch_started": false,
+  "type_script_build": "passed",
+  "tests": {
+    "round_plan": 8,
+    "round_workflow": 8,
+    "round_evidence": 13,
+    "atomic_snapshot_export": 2,
+    "transfer_archive": 1,
+    "existing_fixed_view_and_dimension_lifecycle": 27,
+    "existing_portable_runner": 20
+  },
+  "all_generation_dry_run": {
+    "cases": 49,
+    "initial_per_case": 1,
+    "vanilla_rounds_per_case": 1,
+    "ours_rounds_per_case": 3,
+    "model_calls": 0,
+    "Docker_invoked": false
+  },
+  "existing_real_artifact_validation": {
+    "status": "passed",
+    "model_calls": 0,
+    "scope": "Read-only validation and export of existing real single-round results from their separate historical Initials; not a new shared-Initial/multi-round model run.",
+    "vanilla": {
+      "source_sha256": "db91a5c69e0e26cfeb822d3699ba6da5ba73e8a15d9c3e92c5418c5489d36bc4",
+      "step_sha256": "c7502e8511435b175549882539e8bce3a4b85a40ae743fe4e0d6c5d70fb01b69"
+    },
+    "ours": {
+      "source_sha256": "7c5884c06f503bb392e50f012dd6222009f714ac005b0abdb13ed536aca4dd07",
+      "step_sha256": "15db0ae82ea3b16dd5a7a14174c224bca2a361478aab1447095a7127d5029669",
+      "region_status_counts": {
+        "annotated": 6,
+        "unsupported": 2
+      },
+      "measured_dimension_count": 22,
+      "inspected_regions": [
+        "p0_front",
+        "p0_iso_upper",
+        "p0_side"
+      ]
+    }
+  },
+  "runtime_code_sha256": {
+    "integrations/pi/round-comparison/config.json": "358db448db138cfe6ebbff3d90ead1fd0b9475711f70daa7bf44f51100aaff36",
+    "integrations/pi/round-comparison/plan.mjs": "cd0427b452f5cbe7b8ddaf58ccc3c28f9c1d3042f7b8355e697a73387a91a315",
+    "integrations/pi/round-comparison/run.mjs": "13a1a8151bc0be0e8c176ab613662f5542141d2e25220cc58a553fef50d6f39c",
+    "integrations/pi/round-comparison/run.sh": "3eb9857ba40ec24812c70545a8bc54acb55f367fce5766525e3f91c3b01a4164",
+    "integrations/pi/round-comparison/setup.sh": "4782347592e826b4c454607e003c0c63ed0f43e6bb54d490d6d7a288a67b3baa",
+    "integrations/pi/round-comparison/validation.mjs": "5eb232a4a9129aefccd55a44c97b60009290a857d41952d0434539fdf262ce7b",
+    "integrations/pi/portable-full-method/run.mjs": "1b2bdbe9cd1ba3fcf1861cea3e0a15de1ce737c7044932fe6def156dc2745663",
+    "integrations/pi/src/main-self-reflect-continuation-cli.ts": "face7e0c20381d11253d05bf06866d1796fbc7c7c84f2f1b8baeedf39c1d90e1",
+    "integrations/pi/src/runner.ts": "1fec6e0455349d25f7d07044831b2d5b42bbfc86ae9bee34c7418c95786a2bcf",
+    "integrations/pi/src/dimension-annotations.ts": "023a09581f33fe9bd0c46722b030f1a03ae2b32f276da523f613ef70bf1fd2c4"
+  },
+  "evidence_boundaries": [
+    "Scheduling tests use injected execution, never fabricated model calls or geometry scores.",
+    "Existing historical single-round artifacts were read-only validated and exported; they are not presented as a new shared-Initial multi-round run.",
+    "Dimension completion retains unresolved/unsupported regions; it does not assert complete measurement coverage.",
+    "No ground-truth geometric accuracy metrics are computed."
+  ]
+}

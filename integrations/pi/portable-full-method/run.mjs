@@ -160,11 +160,11 @@ export async function freezeAutomaticViews(sourceWorkspace, viewWorkspace, confi
   return record;
 }
 
-async function runCommand(command, { logPath, timeoutMinutes } = {}) {
+export async function runCommand(command, { logPath, timeoutMinutes, env = process.env } = {}) {
   if (logPath) await mkdir(dirname(logPath), { recursive: true });
   const log = logPath ? createWriteStream(logPath, { flags: "a" }) : undefined;
   return await new Promise((resolvePromise, reject) => {
-    const child = spawn(command[0], command.slice(1), { cwd: repositoryRoot, env: process.env, stdio: ["ignore", "pipe", "pipe"] });
+    const child = spawn(command[0], command.slice(1), { cwd: repositoryRoot, env, stdio: ["ignore", "pipe", "pipe"] });
     let timedOut = false;
     let interrupted = false;
     let settled = false;

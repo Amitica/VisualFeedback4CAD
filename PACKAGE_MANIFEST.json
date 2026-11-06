@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "package_name": "visualfeedback4cad-baselines-20261105-v1",
-  "created_at": "2026-11-05T10:14:26.724Z",
+  "package_name": "visualfeedback4cad-rounds-20261106-v1",
+  "created_at": "2026-11-06T01:57:18.217Z",
   "source_git_head": "8ae143221935ecece1d3d4b5141f3afa4e915988",
   "source_git_dirty": true,
   "snapshot_policy": "Current allowlisted working-tree files, including untracked changes; not a Git HEAD-only export.",
@@ -1202,8 +1202,8 @@
     },
     {
       "path": "integrations/pi/portable-full-method/run.mjs",
-      "bytes": 21939,
-      "sha256": "279f493c14958b6bfcbc4fc2287f15ff4a31012c74fe1f0e7be342ecc71e1ab1"
+      "bytes": 21952,
+      "sha256": "1b2bdbe9cd1ba3fcf1861cea3e0a15de1ce737c7044932fe6def156dc2745663"
     },
     {
       "path": "integrations/pi/portable-full-method/run.test.mjs",
@@ -1214,6 +1214,66 @@
       "path": "integrations/pi/portable-full-method/setup.sh",
       "bytes": 797,
       "sha256": "3f821d8bb0f860c0d46009892cff93b171279267483c6c01d780bfead148354c"
+    },
+    {
+      "path": "integrations/pi/round-comparison/config.json",
+      "bytes": 568,
+      "sha256": "358db448db138cfe6ebbff3d90ead1fd0b9475711f70daa7bf44f51100aaff36"
+    },
+    {
+      "path": "integrations/pi/round-comparison/plan.mjs",
+      "bytes": 4948,
+      "sha256": "cd0427b452f5cbe7b8ddaf58ccc3c28f9c1d3042f7b8355e697a73387a91a315"
+    },
+    {
+      "path": "integrations/pi/round-comparison/plan.test.mjs",
+      "bytes": 8459,
+      "sha256": "957fe30df189b68b2e393b746bb00c329e6ce63f4a606c4fd3a3e3aec40e4e3a"
+    },
+    {
+      "path": "integrations/pi/round-comparison/README.md",
+      "bytes": 7899,
+      "sha256": "0bfd74501ed974d12c7f9bffdd934d5eb63f6c62933f9efb7112297318fa685d"
+    },
+    {
+      "path": "integrations/pi/round-comparison/run.mjs",
+      "bytes": 20042,
+      "sha256": "13a1a8151bc0be0e8c176ab613662f5542141d2e25220cc58a553fef50d6f39c"
+    },
+    {
+      "path": "integrations/pi/round-comparison/run.sh",
+      "bytes": 140,
+      "sha256": "3eb9857ba40ec24812c70545a8bc54acb55f367fce5766525e3f91c3b01a4164"
+    },
+    {
+      "path": "integrations/pi/round-comparison/run.test.mjs",
+      "bytes": 19313,
+      "sha256": "878efa1c0cf56078ecf6df58d2a551d0bbcebed1c5be4b16feed6ec3515ebf15"
+    },
+    {
+      "path": "integrations/pi/round-comparison/setup.sh",
+      "bytes": 271,
+      "sha256": "4782347592e826b4c454607e003c0c63ed0f43e6bb54d490d6d7a288a67b3baa"
+    },
+    {
+      "path": "integrations/pi/round-comparison/snapshot.test.mjs",
+      "bytes": 3802,
+      "sha256": "8345b419c7220a69b193956d5cd384e0ca55fe6f49dc341ef4fb0ba50ac5dcc4"
+    },
+    {
+      "path": "integrations/pi/round-comparison/validation.mjs",
+      "bytes": 15019,
+      "sha256": "5eb232a4a9129aefccd55a44c97b60009290a857d41952d0434539fdf262ce7b"
+    },
+    {
+      "path": "integrations/pi/round-comparison/validation.test.mjs",
+      "bytes": 14596,
+      "sha256": "e0e367964eaf3690436a03543c8af43e4091695f59546d6b65fc5c7cc59f3970"
+    },
+    {
+      "path": "integrations/pi/round-comparison/verification/20261106.json",
+      "bytes": 3516,
+      "sha256": "b6ddd0ce9152884a4922f25d8c19b8bde28791c1f68f720e389fdd25fab5fabf"
     },
     {
       "path": "integrations/pi/src/adopt-shape-candidate.ts",
@@ -1337,13 +1397,13 @@
     },
     {
       "path": "integrations/pi/src/main-self-reflect-continuation-cli.ts",
-      "bytes": 74656,
-      "sha256": "be19a2f3d66adcb1b515142330fc9349e7bc44e56ac5c94eefd149c8e6aaff15"
+      "bytes": 80630,
+      "sha256": "face7e0c20381d11253d05bf06866d1796fbc7c7c84f2f1b8baeedf39c1d90e1"
     },
     {
       "path": "integrations/pi/src/main-self-reflect.ts",
-      "bytes": 25794,
-      "sha256": "415dc2dbf739b5f35096af9c22b00bdcbbbf071a7e6a2a0496ac887ebb0c4a40"
+      "bytes": 26526,
+      "sha256": "ddb6bf2fafe85f76a0f7f35a2db174bd94cfee788b6fd3f23a559a59771d4dd0"
     },
     {
       "path": "integrations/pi/src/main-view-reflect-continuation-cli.ts",
@@ -1387,8 +1447,8 @@
     },
     {
       "path": "integrations/pi/src/runner.ts",
-      "bytes": 52469,
-      "sha256": "1c4f20ec45df37e9205d1418ccb5fd9be63e1c92020dba4fee2859c3e2c5cfab"
+      "bytes": 54002,
+      "sha256": "1fec6e0455349d25f7d07044831b2d5b42bbfc86ae9bee34c7418c95786a2bcf"
     },
     {
       "path": "integrations/pi/src/shape-feedback.ts",
@@ -1407,8 +1467,8 @@
     },
     {
       "path": "integrations/pi/src/types.ts",
-      "bytes": 30025,
-      "sha256": "bf0995195a123b2b122ae8649a372bc9014c88e1c1be3c5f02f45f10b754b9a5"
+      "bytes": 30345,
+      "sha256": "0ae9e79d0e61e83c81e22cb58992c63ad4d4ed418a0fab91771d1d2e63003134"
     },
     {
       "path": "integrations/pi/src/visual-diagnostic-cli.ts",
@@ -1446,6 +1506,11 @@
       "sha256": "5fa1c5ffe9ea21a83960c7a5c1aa7ddd62ab19d9d6ab2a4899c54729eb3edfe3"
     },
     {
+      "path": "integrations/pi/test/chained-fixed-view.test.ts",
+      "bytes": 14403,
+      "sha256": "37584c4d2f28aa5e40962e61326e2a97191f8c92fda1221689dd5f371071dc18"
+    },
+    {
       "path": "integrations/pi/test/code-construction-lifecycle.test.ts",
       "bytes": 8332,
       "sha256": "800936e74cf5e528f7bb7919e7671fbe44b049881ff56403e27dcc424a69dc49"
@@ -1457,8 +1522,8 @@
     },
     {
       "path": "integrations/pi/test/dimension-annotations.test.ts",
-      "bytes": 23282,
-      "sha256": "033998cd06b14321fd9e20f2617bdbf79bf6b64c4c9069f7883c12d287629a13"
+      "bytes": 25880,
+      "sha256": "bd6c9ef14f07ee38d9de030dd27016aea697ebcc88dd617132ad5facb2c2ebe2"
     },
     {
       "path": "integrations/pi/test/docker-worker.test.ts",
@@ -1507,8 +1572,8 @@
     },
     {
       "path": "integrations/pi/test/main-self-reflect.test.ts",
-      "bytes": 42477,
-      "sha256": "cef62fc17c6ea9f8ce6648fce71e357b881baf1dc6a13372d9e9c570ccf598e9"
+      "bytes": 43914,
+      "sha256": "197ce21f94384440510f4b038fdb07b72e80f53941d2486cd3d215e27257f05c"
     },
     {
       "path": "integrations/pi/test/main-view-reflect-cli.test.ts",
@@ -1622,8 +1687,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 10192,
-      "sha256": "526cc4e18e1d5562393fde6902df6281df916ca1eae9f6f150a7acbb1eb07a37"
+      "bytes": 10962,
+      "sha256": "256525733e0e91e132a68f994d5c1a342265b608273d6fc40028e068ca040d8c"
     },
     {
       "path": "src/cadgenbench/__init__.py",
@@ -1901,8 +1966,8 @@
       "sha256": "2ea9ed2ed9eb559263845917010922ced00eac2d0f8e90ddac2203a0eff07ff8"
     }
   ],
-  "payload_file_count": 296,
-  "payload_bytes": 43968460,
+  "payload_file_count": 309,
+  "payload_bytes": 44094813,
   "hash_scope": "All copied payload files listed above. This manifest excludes itself; the adjacent archive SHA256 covers it.",
   "exclusions": [
     "credentials",

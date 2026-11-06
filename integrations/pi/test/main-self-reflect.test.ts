@@ -17,6 +17,7 @@ import {
 	classifySelfReflectSource,
 	MAIN_SELF_REFLECT_INSPECT_KIND,
 	mainSelfReflectInspectPrompt,
+	mainSelfReflectNoNewImagesPrompt,
 	mainSelfReflectPrompt,
 	withIsolatedTimeout,
 } from "../src/main-self-reflect.js";
@@ -758,5 +759,29 @@ describe("Main-Agent-only self-reflection contract", () => {
 		expect(peak).toBe(3);
 		expect(Math.max(...starts) - Math.min(...starts)).toBeLessThan(15);
 		expect(settled.map(({ status }) => status)).toEqual(["fulfilled", "rejected", "fulfilled"]);
+	});
+});
+
+
+describe("direct reflection round wording", () => {
+	it("preserves the original Initial prompt by default", () => {
+		const prompt = mainSelfReflectNoNewImagesPrompt("146");
+		expect(prompt).toBe(mainSelfReflectNoNewImagesPrompt("146", false));
+		expect(prompt).toContain("this exact existing Initial Pi session");
+		expect(prompt).toContain("preserved the Initial source, STEP, render and session");
+		expect(prompt).toContain("keeping Initial unchanged is allowed");
+		expect(prompt).not.toContain("previous completed reflection round");
+	});
+	it("uses the prior completed round and full same-session history without extra images or forced edits", () => {
+		const prompt = mainSelfReflectNoNewImagesPrompt("146", true);
+		expect(prompt).toContain("this exact existing Pi session, retaining the full history");
+		expect(prompt).toContain("previous completed reflection round under /workspace/baseline/");
+		expect(prompt).toContain("keeping the previous round's output unchanged is allowed");
+		expect(prompt).not.toContain("keeping Initial unchanged");
+		expect(prompt).not.toContain("preserved the Initial source");
+		expect(prompt).toContain("No new images are attached or provided by tools");
+		expect(prompt).toContain("only when they address a supported discrepancy");
+		expect(prompt).toContain("formally bound, valid and watertight");
+		expect(prompt).not.toContain("must change");
 	});
 });
